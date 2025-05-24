@@ -1,33 +1,132 @@
-.App {
-  text-align: center;
+/* Beautiful Animated React App CSS */
+
+/* CSS Variables for theming */
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --dark-bg: #1a202c;
+  --darker-bg: #171923;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --text-primary: #ffffff;
+  --text-secondary: #a0aec0;
+  --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --border-radius: 20px;
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+/* Global styles with smooth entrance */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Enhanced App container with animated background */
+.App {
+  text-align: center;
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #1a202c, #2d3748, #4a5568);
+  background-size: 400% 400%;
+  animation: gradientWave 8s ease-in-out infinite;
+}
+
+.App::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 198, 255, 0.3) 0%, transparent 50%);
+  z-index: -1;
+  animation: floatingOrbs 20s ease-in-out infinite;
+}
+
+/* Background gradient animation */
+@keyframes gradientWave {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Floating orbs animation */
+@keyframes floatingOrbs {
+  0%, 100% {
+    transform: translate(0px, 0px) rotate(0deg);
+    opacity: 0.7;
+  }
+  33% {
+    transform: translate(30px, -30px) rotate(120deg);
+    opacity: 0.9;
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(240deg);
+    opacity: 0.8;
+  }
+}
+
+/* Enhanced logo with multiple animation layers */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  position: relative;
+  filter: drop-shadow(0 0 20px rgba(97, 218, 251, 0.5));
+  transition: var(--transition-smooth);
+}
+
+.App-logo::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: conic-gradient(from 0deg, transparent, #61dafb, transparent, #667eea, transparent);
+  border-radius: 50%;
+  z-index: -1;
+  animation: logoGlow 3s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes logoGlow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: logoFloat 6s ease-in-out infinite, App-logo-spin infinite 20s linear;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
+/* Enhanced logo spin with easing */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +134,314 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Logo floating animation */
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Stunning header with glass morphism */
+.App-header {
+  background: linear-gradient(135deg, 
+    rgba(40, 44, 52, 0.9) 0%, 
+    rgba(45, 55, 72, 0.8) 50%, 
+    rgba(74, 85, 104, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+  animation: headerSlideIn 1.2s ease-out;
+}
+
+.App-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  animation: shimmer 3s infinite;
+}
+
+/* Header entrance animation */
+@keyframes headerSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Enhanced App link with hover effects */
+.App-link {
+  color: #61dafb;
+  text-decoration: none;
+  position: relative;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition-bounce);
+  background: linear-gradient(135deg, transparent, rgba(97, 218, 251, 0.1));
+  border: 1px solid rgba(97, 218, 251, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.App-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent-gradient);
+  border-radius: var(--border-radius);
+  z-index: -1;
+  transform: scale(0);
+  transition: var(--transition-bounce);
+}
+
+.App-link:hover {
+  color: white;
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-glow);
+}
+
+.App-link:hover::before {
+  transform: scale(1);
+}
+
+/* Text animations */
+.animate-text {
+  background: linear-gradient(135deg, #61dafb, #667eea, #f093fb);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textGradient 4s ease-in-out infinite;
+}
+
+@keyframes textGradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Particle effects */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #61dafb, transparent);
+  border-radius: 50%;
+  animation: particleFloat 15s linear infinite;
+}
+
+.particle:nth-child(2n) {
+  background: radial-gradient(circle, #667eea, transparent);
+  animation-duration: 20s;
+}
+
+.particle:nth-child(3n) {
+  background: radial-gradient(circle, #f093fb, transparent);
+  animation-duration: 25s;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Loading spinner enhancement */
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(97, 218, 251, 0.2);
+  border-top: 4px solid #61dafb;
+  border-radius: 50%;
+  animation: spin 1s linear infinite, pulse 2s ease-in-out infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(97, 218, 251, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(97, 218, 251, 0);
+  }
+}
+
+/* Button enhancements */
+.btn-primary {
+  background: var(--primary-gradient);
+  border: none;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-bounce);
+  box-shadow: var(--shadow-card);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Card components */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin: 1rem;
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-card);
+}
+
+.glass-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border-color: rgba(97, 218, 251, 0.5);
+}
+
+/* Responsive animations */
+@media (max-width: 768px) {
+  .App-logo {
+    height: 30vmin;
+  }
+  
+  .App-header {
+    font-size: calc(8px + 2vmin);
+    padding: 1rem;
+  }
+  
+  .glass-card {
+    margin: 0.5rem;
+    padding: 1.5rem;
+  }
+}
+
+/* Accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(97, 218, 251, 0.3);
+  color: white;
+}
+
+/* Focus styles */
+:focus {
+  outline: 2px solid #61dafb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--darker-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-gradient);
 }
