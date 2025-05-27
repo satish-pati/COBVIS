@@ -2,7 +2,14 @@ import * as Blockly from 'blockly';
 
 export const cobolGenerator = new Blockly.Generator('COBOL');
 
-cobolGenerator.scrub_ = (block, code) => code;
+cobolGenerator.scrub_ = function(block, code) {
+  // grab any block connected to this one’s “next”
+  const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
+  // generate its code
+  const nextCode = nextBlock ? this.blockToCode(nextBlock) : '';
+  // stitch them together
+  return code + nextCode;
+};
 
 // Define required order constants
 cobolGenerator.ORDER_ATOMIC = 0;
@@ -53,6 +60,65 @@ OBJECT-COMPUTER. ${object}.
 SPECIAL-NAMES. ${special}.
 `;
 };
+
+Blockly.Blocks['cobol_environment_block'] = {
+  init() {
+    this.appendDummyInput().appendField('ENVIRONMENT DIVISION.');
+
+    this.appendDummyInput().appendField('CONFIGURATION SECTION.');
+    this.appendDummyInput().appendField('SOURCE-COMPUTER:')
+      .appendField(new Blockly.FieldTextInput('IBM-370'), 'SOURCE');
+    this.appendDummyInput().appendField('OBJECT-COMPUTER:')
+      .appendField(new Blockly.FieldTextInput('IBM-370'), 'OBJECT');
+    this.appendDummyInput().appendField('SPECIAL-NAMES:')
+      .appendField(new Blockly.FieldTextInput('DECIMAL-POINT IS COMMA'), 'SPECIAL');
+
+    this.appendDummyInput().appendField('INPUT-OUTPUT SECTION.');
+    this.appendDummyInput().appendField('FILE-CONTROL.');
+
+    this.appendDummyInput().appendField('SELECT')
+      .appendField(new Blockly.FieldTextInput('FILE-ID'), 'SELECT');
+    this.appendDummyInput().appendField('ASSIGN TO')
+      .appendField(new Blockly.FieldTextInput('filename.txt'), 'ASSIGN');
+    this.appendDummyInput().appendField('ORGANIZATION IS')
+      .appendField(new Blockly.FieldDropdown([
+        ["SEQUENTIAL", "SEQUENTIAL"],
+        ["LINE SEQUENTIAL", "LINE SEQUENTIAL"],
+        ["INDEXED", "INDEXED"],
+        ["RELATIVE", "RELATIVE"]
+      ]), 'ORG');
+    this.appendDummyInput().appendField('ACCESS MODE IS')
+      .appendField(new Blockly.FieldDropdown([
+        ["SEQUENTIAL", "SEQUENTIAL"],
+        ["RANDOM", "RANDOM"],
+        ["DYNAMIC", "DYNAMIC"]
+      ]), 'ACCESS');
+
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(20);
+    this.setTooltip(`ENVIRONMENT DIVISION – Declares the system and file environment for the program.
+Includes:
+1. CONFIGURATION SECTION – Defines the target computer systems and any language-specific settings.
+   Syntax:
+     CONFIGURATION SECTION.
+     SOURCE-COMPUTER. <system>.
+     OBJECT-COMPUTER. <system>.
+     SPECIAL-NAMES. <rules>.
+2. INPUT-OUTPUT SECTION – Declares file usage and control mechanisms.
+   Syntax:
+     INPUT-OUTPUT SECTION.
+     FILE-CONTROL.
+     SELECT <file-id>
+       ASSIGN TO <filename>
+       ORGANIZATION IS <type>
+       ACCESS MODE IS <mode>.
+Purpose:
+- Configures the execution environment and file handling for the COBOL program.
+- Essential for any COBOL program interacting with files or using system-specific features.`);
+  }
+};
+
 
 cobolGenerator['cobol_input_output_section'] = () =>
   `INPUT-OUTPUT SECTION.
@@ -161,12 +227,25 @@ cobolGenerator['cobol_section'] = block => {
 
 cobolGenerator['cobol_display'] = block => {
   const text = block.getFieldValue('TEXT');
-  return `DISPLAY "${text}".\n`;
+  const isNested = !!block.getSurroundParent();
+
+  // Only add period if not nested
+  const lineEnding = isNested ? '' : '.';
+
+  return `DISPLAY "${text}"${lineEnding}\n`;
 };
+cobolGenerator['cobolif_display'] = block => {
+  const text = block.getFieldValue('TEXT');
+  return ` DISPLAY "${text}"\n`;
+};
+
 
 cobolGenerator['cobol_display_variable'] = block => {
   const varName = block.getFieldValue('VAR');
-  return `DISPLAY ${varName}.\n`;
+  const isNested = !!block.getSurroundParent();
+  const lineEnding = isNested ? '' : '.';
+
+  return `DISPLAY ${varName}${lineEnding}\n`;
 };
 
 cobolGenerator['cobol_accept'] = block => {
@@ -602,7 +681,6 @@ cobolGenerator.forBlock['cobol_identification_division'] = cobolGenerator['cobol
 cobolGenerator.forBlock['cobol_remarks'] = cobolGenerator['cobol_remarks'];
 
 // Environment Division
-cobolGenerator.forBlock['cobol_environment_division'] = cobolGenerator['cobol_environment_division'];
 cobolGenerator.forBlock['cobol_configuration_section'] = cobolGenerator['cobol_configuration_section'];
 cobolGenerator.forBlock['cobol_input_output_section'] = cobolGenerator['cobol_input_output_section'];
 cobolGenerator.forBlock['cobol_select_file'] = cobolGenerator['cobol_select_file'];
@@ -710,3 +788,8 @@ cobolGenerator.forBlock['cobol_exec_cics'] = cobolGenerator['cobol_exec_cics'];
 cobolGenerator.forBlock['cobol_eject'] = cobolGenerator['cobol_eject'];
 cobolGenerator.forBlock['cobol_skip'] = cobolGenerator['cobol_skip'];
 cobolGenerator.forBlock['cobol_title'] = cobolGenerator['cobol_title'];
+// register the in-IF DISPLAY (no period)
+cobolGenerator.forBlock['cobolif_display'] = cobolGenerator['cobolif_display'];
+cobolGenerator.forBlock['cobol_environment_block'] = cobolGenerator['cobol_environment_block'];
+cobolGenerator.forBlock['cobol_environment_division'] = cobolGenerator['cobol_environment_division'];
+cobolGenerator.forBlock['cobol_full_data_division'] = cobolGenerator['cobol_full_data_division'];

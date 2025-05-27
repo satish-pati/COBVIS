@@ -20,8 +20,13 @@ Blockly.Blocks['cobol_identification_division'] = {
     this.appendDummyInput().appendField('SECURITY:')
       .appendField(new Blockly.FieldTextInput('NONE'), 'SECURITY');
     this.setNextStatement(true);
-    this.setColour(10);
-    this.setTooltip('IDENTIFICATION DIVISION - Program identification');
+    this.setColour(110);
+    this.setTooltip(`IDENTIFICATION DIVISION - Specifies metadata about the COBOL program.
+Syntax:
+  IDENTIFICATION DIVISION.
+  PROGRAM-ID. name.
+  AUTHOR. name.
+Used to define the identity and documentation of the COBOL source file.`);
   }
 };
 
@@ -31,8 +36,8 @@ Blockly.Blocks['cobol_remarks'] = {
       .appendField(new Blockly.FieldTextInput('Program description'), 'REMARKS');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(10);
-    this.setTooltip('Add remarks to program');
+    this.setColour(110);
+    this.setTooltip('REMARKS - Adds human-readable comments or documentation.\nSyntax: REMARKS. text.');
   }
 };
 
@@ -46,7 +51,10 @@ Blockly.Blocks['cobol_environment_division'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(20);
-    this.setTooltip('ENVIRONMENT DIVISION - System environment');
+    this.setTooltip(`ENVIRONMENT DIVISION – Describes system environment.
+Syntax:
+  ENVIRONMENT DIVISION.
+Used before configuration and I/O sections to declare external system settings.`);
   }
 };
 
@@ -62,7 +70,7 @@ Blockly.Blocks['cobol_configuration_section'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(20);
-    this.setTooltip('Configuration section for system settings');
+    this.setTooltip(`CONFIGURATION SECTION - Defines compiler and hardware details.\nSyntax: CONFIGURATION SECTION.\n  SOURCE-COMPUTER. name.\n  OBJECT-COMPUTER. name.`);
   }
 };
 
@@ -101,6 +109,34 @@ Blockly.Blocks['cobol_select_file'] = {
     this.setColour(20);
     this.setTooltip('Select file with organization and access mode');
   }
+}; 
+
+Blockly.Blocks['cobol_environment_division'] = {
+  init() {
+    this.appendDummyInput().appendField('ENVIRONMENT DIVISION.');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(20);
+    this.setTooltip(`ENVIRONMENT DIVISION – Declares the system and file environment for the program.
+Includes:
+1. CONFIGURATION SECTION – Defines the target computer systems and any language-specific settings.
+   Syntax:
+     CONFIGURATION SECTION.
+     SOURCE-COMPUTER. <system>.
+     OBJECT-COMPUTER. <system>.
+     SPECIAL-NAMES. <rules>.
+2. INPUT-OUTPUT SECTION – Declares file usage and control mechanisms.
+   Syntax:
+     INPUT-OUTPUT SECTION.
+     FILE-CONTROL.
+     SELECT <file-id>
+       ASSIGN TO <filename>
+       ORGANIZATION IS <type>
+       ACCESS MODE IS <mode>.
+Purpose:
+- Configures the execution environment and file handling for the COBOL program.
+- Essential for any COBOL program interacting with files or using system-specific features.`);
+  }
 };
 
 // =============================================
@@ -112,8 +148,16 @@ Blockly.Blocks['cobol_data_division'] = {
     this.appendDummyInput().appendField('DATA DIVISION.');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(30);
-    this.setTooltip('DATA DIVISION - Data definitions');
+    this.setColour(50	);
+    this.setTooltip(`This block represents a full COBOL DATA DIVISION template, including:
+1. FILE SECTION – to define files and record layouts.
+2. FD RECORD – file descriptor with layout.
+3. WORKING-STORAGE SECTION – for program variables.
+4. VARIABLE DECLARATION – to define individual data items.
+5. GROUP ITEM – for structuring related fields.
+6. OCCURS CLAUSE – to declare arrays.
+7. LINKAGE SECTION – for external parameters.
+Drag this block to insert the full sequence.`);
   }
 };
 
@@ -122,8 +166,11 @@ Blockly.Blocks['cobol_file_section'] = {
     this.appendDummyInput().appendField('FILE SECTION.');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(30);
-    this.setTooltip('FILE SECTION for file record descriptions');
+    this.setColour(50);
+    this.setTooltip(`FILE SECTION – Defines the layout of input/output files.
+Syntax:
+  FILE SECTION.
+Used under DATA DIVISION to declare FD entries that describe file structure, record format, and block size.`);
   }
 };
 
@@ -143,8 +190,14 @@ Blockly.Blocks['cobol_fd_record'] = {
       .appendField(new Blockly.FieldTextInput('MYRECORD'), 'RECORD');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(30);
-    this.setTooltip('File description with record layout');
+    this.setColour(50);
+    this.setTooltip(`FD <name> – Declares file descriptor and record layout.
+Syntax:
+  FD <name>
+    LABEL RECORDS ARE <STANDARD|OMITTED>
+    RECORD CONTAINS <n> CHARACTERS.
+  01 <record-name>.
+Used to define file format and record structure.`);
   }
 };
 
@@ -153,8 +206,12 @@ Blockly.Blocks['cobol_working_storage_section'] = {
     this.appendDummyInput().appendField('WORKING-STORAGE SECTION.');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(30);
-    this.setTooltip('WORKING-STORAGE SECTION for variables');
+    this.setColour(50);
+    this.setTooltip(`WORKING-STORAGE SECTION – Declares global variables.
+Used under DATA DIVISION to define variables that persist throughout program execution.
+Syntax:
+  WORKING-STORAGE SECTION.
+  01 <var-name> PIC <type> VALUE <init>.`);
   }
 };
 
@@ -185,8 +242,11 @@ Blockly.Blocks['cobol_variable_declaration'] = {
       .appendField(new Blockly.FieldTextInput(""), "VALUE");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(45);
-    this.setTooltip('Declare variable with level, picture and value');
+    this.setColour(50);
+    this.setTooltip(`Declare a COBOL variable.
+Specify level number, variable name, data type (PIC clause), and optional initial VALUE.
+Example:
+  01 AGE PIC 9(2) VALUE 25.`);
   }
 };
 
@@ -204,8 +264,12 @@ Blockly.Blocks['cobol_group_item'] = {
       .appendField("ITEMS:");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(45);
-    this.setTooltip('Group data item with subordinate items');
+    this.setColour(50);
+    this.setTooltip(`Group Item – Combines multiple subordinate items under one name.
+Used to group related data fields, allowing hierarchical data structures.
+Syntax:
+  <level> <group-name>.
+    <sub-level> <field-name> PIC <type>.`);
   }
 };
 
@@ -230,8 +294,13 @@ Blockly.Blocks['cobol_occurs_clause'] = {
       ]), "PIC");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(45);
-    this.setTooltip('Array declaration with OCCURS clause');
+    this.setColour(50);
+    this.setTooltip(`OCCURS Clause – Declares an array (repeating group) of data items.
+Used to define a table or array in COBOL.
+Syntax:
+  <level> <array-name> OCCURS <n> TIMES
+         PIC <type>.
+Enables indexing and looping over repeated data.`);
   }
 };
 
@@ -240,8 +309,10 @@ Blockly.Blocks['cobol_linkage_section'] = {
     this.appendDummyInput().appendField('LINKAGE SECTION.');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(30);
-    this.setTooltip('LINKAGE SECTION for parameters');
+    this.setColour(80);
+    this.setTooltip(`LINKAGE SECTION – Declares variables passed from other programs.
+Used in subprograms to receive data through the CALL statement.
+Variables must be defined in the PROCEDURE DIVISION USING clause.`);
   }
 };
 
@@ -254,8 +325,14 @@ Blockly.Blocks['cobol_procedure_division'] = {
     this.appendDummyInput().appendField('PROCEDURE DIVISION.');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(40);
-    this.setTooltip('PROCEDURE DIVISION - Program logic');
+    this.setColour(110);
+    this.setTooltip(`PROCEDURE DIVISION – Contains the executable logic of the COBOL program.
+Syntax:
+  PROCEDURE DIVISION.
+      <statements and paragraphs>
+Purpose:
+- Defines the sequence of operations to perform using declared data.
+- Contains the core logic including conditionals, loops, and calls.`);
   }
 };
 
@@ -265,8 +342,13 @@ Blockly.Blocks['cobol_procedure_using'] = {
       .appendField(new Blockly.FieldTextInput('PARM1 PARM2'), 'PARMS');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(40);
-    this.setTooltip('PROCEDURE DIVISION with parameters');
+    this.setColour(110);
+    this.setTooltip(`PROCEDURE DIVISION USING – Specifies parameters passed from another program or calling environment.
+Syntax:
+  PROCEDURE DIVISION USING <param1> <param2> ...
+Purpose:
+- Accepts data passed from calling program or linkage section.
+- Used when working with subprograms or modular programs.`);
   }
 };
 
@@ -282,7 +364,13 @@ Blockly.Blocks['cobol_paragraph'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(110);
-    this.setTooltip('COBOL paragraph with statements');
+    this.setTooltip(`Paragraph – A named block of executable statements within the PROCEDURE DIVISION.
+Syntax:
+  <paragraph-name>.
+      <statements>
+Purpose:
+- Organizes program logic into modular, reusable units.
+- Can be invoked via PERFORM statements for structured flow control.`);
   }
 };
 
@@ -294,22 +382,50 @@ Blockly.Blocks['cobol_section'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(110);
-    this.setTooltip('COBOL section with paragraphs');
+    this.setTooltip(`Section – A higher-level grouping of paragraphs within the PROCEDURE DIVISION.
+Syntax:
+  <section-name> SECTION.
+      <paragraphs>
+Purpose:
+- Groups related paragraphs for readability and modular design.
+- Helps structure complex programs into logical parts.`);
   }
 };
 
-// =============================================
-// INPUT/OUTPUT BLOCKS
-// =============================================
 
+// =============================================
+// DISPLAY & ACCEPT BLOCKS
+// =============================================
 Blockly.Blocks['cobol_display'] = {
   init() {
     this.appendDummyInput().appendField('DISPLAY')
       .appendField(new Blockly.FieldTextInput('Hello'), 'TEXT');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(160);
-    this.setTooltip('Display text or variable');
+    this.setColour(330);
+    this.setTooltip(
+      `DISPLAY – Outputs literal text or expression to the console.
+Syntax:
+  DISPLAY <text-or-variable>.
+Uses:
+- Debugging and user messages.`
+    );
+  }
+};
+Blockly.Blocks['cobolif_display'] = {
+  init() {
+    this.appendDummyInput().appendField('DISPLAY')
+      .appendField(new Blockly.FieldTextInput('Hello'), 'TEXT');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(330);
+    this.setTooltip(
+      `DISPLAY – Outputs literal text or expression to the console.
+Syntax:
+  DISPLAY <text-or-variable>.
+Uses:
+- Debugging and user messages.`
+    );
   }
 };
 
@@ -319,8 +435,14 @@ Blockly.Blocks['cobol_display_variable'] = {
       .appendField(new Blockly.FieldTextInput('VAR-NAME'), 'VAR');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(160);
-    this.setTooltip('Display variable value');
+    this.setColour(330);
+    this.setTooltip(
+      `DISPLAY (Variable) – Shows the value of a variable.
+Syntax:
+  DISPLAY <var-name>.
+Uses:
+- Output data stored in working-storage or linkage variables.`
+    );
   }
 };
 
@@ -331,8 +453,14 @@ Blockly.Blocks['cobol_accept'] = {
       .appendField(new Blockly.FieldTextInput("VAR-NAME"), "VAR");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(160);
-    this.setTooltip("Accept user input into variable");
+    this.setColour(330);
+    this.setTooltip(
+      `ACCEPT – Reads user input into a variable.
+Syntax:
+  ACCEPT <var-name>.
+Uses:
+- Interactive data entry from terminal.`
+    );
   }
 };
 
@@ -350,15 +478,20 @@ Blockly.Blocks['cobol_accept_date'] = {
       ]), "SOURCE");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(160);
-    this.setTooltip("Accept system date/time");
+    this.setColour(330);
+    this.setTooltip(
+      `ACCEPT Date/Time – Retrieves system date, day, time, or weekday.
+Syntax:
+  ACCEPT <var> FROM <DATE|DAY|TIME|DAY-OF-WEEK>.
+Uses:
+- Populate variables with runtime system values.`
+    );
   }
 };
 
 // =============================================
 // FILE OPERATION BLOCKS
 // =============================================
-
 Blockly.Blocks['cobol_open'] = {
   init() {
     this.appendDummyInput().appendField('OPEN')
@@ -372,7 +505,13 @@ Blockly.Blocks['cobol_open'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(140);
-    this.setTooltip('Open file for processing');
+    this.setTooltip(
+      `OPEN – Prepares file for processing in specified mode.
+Syntax:
+  OPEN {INPUT|OUTPUT|I-O|EXTEND} <file-id>.
+Uses:
+- Initialize file access before READ/WRITE/REWRITE.`
+    );
   }
 };
 
@@ -383,7 +522,13 @@ Blockly.Blocks['cobol_close'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(140);
-    this.setTooltip('Close file');
+    this.setTooltip(
+      `CLOSE – Terminates processing of an open file.
+Syntax:
+  CLOSE <file-id>.
+Uses:
+- Release file resources after I/O operations.`
+    );
   }
 };
 
@@ -396,7 +541,13 @@ Blockly.Blocks['cobol_read'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(140);
-    this.setTooltip('Read record from file');
+    this.setTooltip(
+      `READ – Reads next record from file into record area.
+Syntax:
+  READ <file-id> [AT END <action>].
+Uses:
+- Sequential file record retrieval; handle end-of-file.`
+    );
   }
 };
 
@@ -407,7 +558,13 @@ Blockly.Blocks['cobol_write'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(140);
-    this.setTooltip('Write record to file');
+    this.setTooltip(
+      `WRITE – Writes record area contents to output file.
+Syntax:
+  WRITE <record-name>.
+Uses:
+- Generate new file records in OUTPUT or EXTEND mode.`
+    );
   }
 };
 
@@ -418,7 +575,13 @@ Blockly.Blocks['cobol_rewrite'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(140);
-    this.setTooltip('Rewrite existing record');
+    this.setTooltip(
+      `REWRITE – Updates current record in I-O file.
+Syntax:
+  REWRITE <record-name>.
+Uses:
+- Modify existing record after READ.`
+    );
   }
 };
 
@@ -429,14 +592,19 @@ Blockly.Blocks['cobol_delete'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(140);
-    this.setTooltip('Delete current record');
+    this.setTooltip(
+      `DELETE – Removes current record in I-O file.
+Syntax:
+  DELETE <file-id>.
+Uses:
+- Logical deletion of record in indexed files.`
+    );
   }
 };
 
 // =============================================
 // ARITHMETIC BLOCKS
 // =============================================
-
 Blockly.Blocks['cobol_move'] = {
   init() {
     this.appendDummyInput().appendField('MOVE')
@@ -446,7 +614,13 @@ Blockly.Blocks['cobol_move'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Move value to variable');
+    this.setTooltip(
+      `MOVE – Assigns source value to target variable.
+Syntax:
+  MOVE <source> TO <destination>.
+Uses:
+- Data transfer between fields.`
+    );
   }
 };
 
@@ -459,7 +633,13 @@ Blockly.Blocks['cobol_add'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Add number to variable');
+    this.setTooltip(
+      `ADD – Increments variable by numeric value.
+Syntax:
+  ADD <number> TO <var>.
+Uses:
+- Simple accumulation of values.`
+    );
   }
 };
 
@@ -474,7 +654,13 @@ Blockly.Blocks['cobol_add_giving'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Add two values giving result');
+    this.setTooltip(
+      `ADD GIVING – Adds two values and stores sum in result.
+Syntax:
+  ADD <A> TO <B> GIVING <RESULT>.
+Uses:
+- Non-destructive addition.`
+    );
   }
 };
 
@@ -487,7 +673,13 @@ Blockly.Blocks['cobol_subtract'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Subtract number from variable');
+    this.setTooltip(
+      `SUBTRACT – Decrements variable by numeric value.
+Syntax:
+  SUBTRACT <number> FROM <var>.
+Uses:
+- Simple subtraction operations.`
+    );
   }
 };
 
@@ -502,7 +694,13 @@ Blockly.Blocks['cobol_subtract_giving'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Subtract values giving result');
+    this.setTooltip(
+      `SUBTRACT GIVING – Subtracts B from A and stores difference.
+Syntax:
+  SUBTRACT <A> FROM <B> GIVING <RESULT>.
+Uses:
+- Non-destructive subtraction.`
+    );
   }
 };
 
@@ -515,7 +713,13 @@ Blockly.Blocks['cobol_multiply'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Multiply two values');
+    this.setTooltip(
+      `MULTIPLY – Multiplies two numeric values.
+Syntax:
+  MULTIPLY <A> BY <B>.
+Uses:
+- Basic multiplication operations.`
+    );
   }
 };
 
@@ -530,7 +734,13 @@ Blockly.Blocks['cobol_multiply_giving'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Multiply values giving result');
+    this.setTooltip(
+      `MULTIPLY GIVING – Multiplies A and B, stores product.
+Syntax:
+  MULTIPLY <A> BY <B> GIVING <RESULT>.
+Uses:
+- Non-destructive multiplication.`
+    );
   }
 };
 
@@ -543,7 +753,13 @@ Blockly.Blocks['cobol_divide'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Divide two values');
+    this.setTooltip(
+      `DIVIDE – Divides A by B, quotient stored in A.
+Syntax:
+  DIVIDE <A> BY <B>.
+Uses:
+- Basic division operations.`
+    );
   }
 };
 
@@ -560,7 +776,13 @@ Blockly.Blocks['cobol_divide_giving'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Divide values giving quotient and remainder');
+    this.setTooltip(
+      `DIVIDE GIVING – Divides A by B, stores quotient and remainder.
+Syntax:
+  DIVIDE <A> BY <B> GIVING <RESULT> REMAINDER <R>.
+Uses:
+- Quotient and remainder extraction.`
+    );
   }
 };
 
@@ -573,14 +795,19 @@ Blockly.Blocks['cobol_compute'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Compute arithmetic expression');
+    this.setTooltip(
+      `COMPUTE – Evaluates arithmetic expression and stores in result.
+Syntax:
+  COMPUTE <result> = <expression>.
+Uses:
+- Complex calculations with operators.`
+    );
   }
 };
 
 // =============================================
 // CONTROL FLOW BLOCKS
 // =============================================
-
 Blockly.Blocks['cobol_if'] = {
   init() {
     this.appendValueInput('COND').setCheck('String').appendField('IF');
@@ -589,7 +816,13 @@ Blockly.Blocks['cobol_if'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(210);
-    this.setTooltip('IF-THEN-ELSE conditional statement');
+    this.setTooltip(
+      `IF – Conditional branching.
+Syntax:
+  IF <condition> THEN <statements> [ELSE <statements>].
+Uses:
+- Control program flow based on data.`
+    );
   }
 };
 
@@ -611,7 +844,13 @@ Blockly.Blocks['cobol_condition'] = {
       .appendField(new Blockly.FieldTextInput("VAR2"), "RIGHT");
     this.setOutput(true, "String");
     this.setColour(200);
-    this.setTooltip('Condition for IF statements');
+    this.setTooltip(
+      `Condition – Comparison operator expression.
+Syntax:
+  <left> {=|<>|>|<|<=|>=} <right>.
+Uses:
+- Build conditions for IF, PERFORM UNTIL, EVALUATE.`
+    );
   }
 };
 
@@ -621,11 +860,20 @@ Blockly.Blocks['cobol_evaluate'] = {
       .setCheck('String')
       .appendField('EVALUATE');
     this.appendStatementInput('WHEN')
-      .appendField('WHEN CASES');
+      .appendField('WHEN');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(210);
-    this.setTooltip('EVALUATE statement for multiple conditions');
+    this.setTooltip(
+      `EVALUATE – Multi-case conditional (switch).
+Syntax:
+  EVALUATE <expr>
+    WHEN <val> => <stmts>
+    WHEN OTHER => <stmts>
+  END-EVALUATE.
+Uses:
+- Simplify multiple condition branching.`
+    );
   }
 };
 
@@ -637,8 +885,14 @@ Blockly.Blocks['cobol_when_case'] = {
     this.appendStatementInput("DO").appendField("DO");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(230);
-    this.setTooltip('WHEN case for EVALUATE statement');
+    this.setColour(210);
+    this.setTooltip(
+      `WHEN – Case clause for EVALUATE.
+Syntax:
+  WHEN <value> => <statements>.
+Uses:
+- Define action for specific cases.`
+    );
   }
 };
 
@@ -648,15 +902,20 @@ Blockly.Blocks['cobol_when_other'] = {
     this.appendStatementInput("DO").appendField("DO");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(230);
-    this.setTooltip('WHEN OTHER case for EVALUATE statement');
+    this.setColour(210);
+    this.setTooltip(
+      `WHEN OTHER – Default case for EVALUATE.
+Syntax:
+  WHEN OTHER => <statements>.
+Uses:
+- Handle unmatched cases in EVALUATE.`
+    );
   }
 };
 
 // =============================================
-// LOOP BLOCKS
+// LOOP & PERFORM BLOCKS
 // =============================================
-
 Blockly.Blocks['cobol_perform'] = {
   init() {
     this.appendDummyInput().appendField('PERFORM')
@@ -664,7 +923,13 @@ Blockly.Blocks['cobol_perform'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(230);
-    this.setTooltip('Perform paragraph');
+    this.setTooltip(
+      `PERFORM – Executes a paragraph or section.
+Syntax:
+  PERFORM <para-or-section>.
+Uses:
+- Modularize execution flow.`
+    );
   }
 };
 
@@ -677,7 +942,13 @@ Blockly.Blocks['cobol_perform_times'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(230);
-    this.setTooltip('Perform paragraph specified number of times');
+    this.setTooltip(
+      `PERFORM TIMES – Repeats paragraph n times.
+Syntax:
+  PERFORM <para> <n> TIMES.
+Uses:
+- Loop fixed number of iterations.`
+    );
   }
 };
 
@@ -688,7 +959,15 @@ Blockly.Blocks['cobol_perform_until'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(230);
-    this.setTooltip('Perform until condition is true');
+    this.setTooltip(
+      `PERFORM UNTIL – Loop until condition true.
+Syntax:
+  PERFORM UNTIL <cond>
+    <statements>
+  END-PERFORM.
+Uses:
+- Conditional loops.`
+    );
   }
 };
 
@@ -706,7 +985,13 @@ Blockly.Blocks['cobol_perform_varying'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(230);
-    this.setTooltip('Perform with varying counter');
+    this.setTooltip(
+      `PERFORM VARYING – Counter-controlled loop.
+Syntax:
+  PERFORM VARYING <var> FROM <start> BY <inc> UNTIL <cond>.
+Uses:
+- Iterate with index variable.`
+    );
   }
 };
 
@@ -716,14 +1001,19 @@ Blockly.Blocks['cobol_goto'] = {
       .appendField(new Blockly.FieldTextInput('PARA-NAME'), 'PARA');
     this.setPreviousStatement(true);
     this.setColour(230);
-    this.setTooltip('Go to paragraph');
+    this.setTooltip(
+      `GO TO – Unconditional jump to paragraph.
+Syntax:
+  GO TO <para-name>.
+Uses:
+- Transfer control; use sparingly for clarity.`
+    );
   }
 };
 
 // =============================================
-// STRING MANIPULATION BLOCKS
+// STRING MANIPULATION
 // =============================================
-
 Blockly.Blocks['cobol_string_concatenate'] = {
   init() {
     this.appendDummyInput()
@@ -740,8 +1030,15 @@ Blockly.Blocks['cobol_string_concatenate'] = {
       .appendField(new Blockly.FieldTextInput("RESULT"), "RESULT");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(65);
-    this.setTooltip('Concatenate strings with delimiters');
+    this.setColour(310);
+    this.setTooltip(
+      `STRING – Concatenate source fields into a result.
+Syntax:
+  STRING <var1> DELIMITED BY <delim1>
+         <var2> DELIMITED BY <delim2> INTO <result>.
+Uses:
+- Build composite text.`
+    );
   }
 };
 
@@ -757,8 +1054,14 @@ Blockly.Blocks['cobol_unstring'] = {
       .appendField(new Blockly.FieldTextInput("VAR1 VAR2"), "VARS");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(65);
-    this.setTooltip('Split string into multiple variables');
+    this.setColour(310);
+    this.setTooltip(
+      `UNSTRING – Split source into variables by delimiter.
+Syntax:
+  UNSTRING <source> DELIMITED BY <delim> INTO <var-list>.
+Uses:
+- Parse text into fields.`
+    );
   }
 };
 
@@ -778,15 +1081,21 @@ Blockly.Blocks['cobol_inspect'] = {
       .appendField(new Blockly.FieldTextInput("'A'"), "CHAR");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(65);
-    this.setTooltip('Inspect string for character operations');
+    this.setColour(310);
+    this.setTooltip(
+      `INSPECT – Analyze or modify characters in a string.
+Syntax:
+  INSPECT <var> {TALLYING|REPLACING|CONVERTING}
+    FOR <ALL|LEADING|FIRST> <char>.
+Uses:
+- Character counts, replacements, conversions.`
+    );
   }
 };
 
 // =============================================
-// INITIALIZATION AND UTILITY BLOCKS
+// INITIALIZE & SET
 // =============================================
-
 Blockly.Blocks['cobol_initialize'] = {
   init() {
     this.appendDummyInput().appendField('INITIALIZE')
@@ -794,7 +1103,13 @@ Blockly.Blocks['cobol_initialize'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Initialize variable to default values');
+    this.setTooltip(
+      `INITIALIZE – Reset numeric items to zero and alphas to spaces.
+Syntax:
+  INITIALIZE <var>.
+Uses:
+- Clear working-storage fields.`
+    );
   }
 };
 
@@ -805,7 +1120,13 @@ Blockly.Blocks['cobol_initialize_multiple'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Initialize multiple variables');
+    this.setTooltip(
+      `INITIALIZE – Reset multiple fields at once.
+Syntax:
+  INITIALIZE <var-list>.
+Uses:
+- Bulk clearing of data items.`
+    );
   }
 };
 
@@ -818,22 +1139,33 @@ Blockly.Blocks['cobol_set'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(60);
-    this.setTooltip('Set index or address variable');
+    this.setTooltip(
+      `SET – Assign starting value to index or pointer.
+Syntax:
+  SET <index-var> TO <value>.
+Uses:
+- Initialize OCCURS index or pointers.`
+    );
   }
 };
 
 // =============================================
-// PROGRAM CONTROL BLOCKS
+// CALL & EXIT
 // =============================================
-
 Blockly.Blocks['cobol_call'] = {
   init() {
     this.appendDummyInput().appendField('CALL')
       .appendField(new Blockly.FieldTextInput('"PROGRAM"'), 'PROG');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(100);
-    this.setTooltip('Call external program');
+    this.setColour(0);
+    this.setTooltip(
+      `CALL – Invoke external subprogram.
+Syntax:
+  CALL "prog-name".
+Uses:
+- Modular program structures.`
+    );
   }
 };
 
@@ -845,8 +1177,14 @@ Blockly.Blocks['cobol_call_using'] = {
       .appendField(new Blockly.FieldTextInput('PARM1 PARM2'), 'PARMS');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(100);
-    this.setTooltip('Call external program with parameters');
+    this.setColour(0);
+    this.setTooltip(
+      `CALL USING – Invoke subprogram with parameters.
+Syntax:
+  CALL "prog" USING <parm-list>.
+Uses:
+- Pass data via linkage section.`
+    );
   }
 };
 
@@ -856,7 +1194,13 @@ Blockly.Blocks['cobol_exit'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(0);
-    this.setTooltip('Exit paragraph or section');
+    this.setTooltip(
+      `EXIT – Return from paragraph or section to caller.
+Syntax:
+  EXIT.
+Uses:
+- End internal program modules.`
+    );
   }
 };
 
@@ -865,7 +1209,13 @@ Blockly.Blocks['cobol_exit_program'] = {
     this.appendDummyInput().appendField('EXIT PROGRAM');
     this.setPreviousStatement(true);
     this.setColour(0);
-    this.setTooltip('Exit current program');
+    this.setTooltip(
+      `EXIT PROGRAM – Terminate subprogram and return to main.
+Syntax:
+  EXIT PROGRAM.
+Uses:
+- End called program execution.`
+    );
   }
 };
 
@@ -874,7 +1224,13 @@ Blockly.Blocks['cobol_stop_run'] = {
     this.appendDummyInput().appendField('STOP RUN');
     this.setPreviousStatement(true);
     this.setColour(0);
-    this.setTooltip('Stop program execution');
+    this.setTooltip(
+      `STOP RUN – Ends program execution entirely.
+Syntax:
+  STOP RUN.
+Uses:
+- Final termination of main program.`
+    );
   }
 };
 
@@ -884,14 +1240,19 @@ Blockly.Blocks['cobol_return'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(false);
     this.setColour(0);
-    this.setTooltip('Return from called program');
+    this.setTooltip(
+      `RETURN – Return to calling environment from program.
+Syntax:
+  RETURN.
+Uses:
+- End of called program, pass control back.`
+    );
   }
 };
 
 // =============================================
-// ERROR HANDLING BLOCKS
+// ERROR HANDLING
 // =============================================
-
 Blockly.Blocks['cobol_on_size_error'] = {
   init() {
     this.appendDummyInput().appendField('ON SIZE ERROR');
@@ -899,7 +1260,14 @@ Blockly.Blocks['cobol_on_size_error'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(300);
-    this.setTooltip('Handle arithmetic overflow errors');
+    this.setTooltip(
+      `ON SIZE ERROR – Handle numeric overflow or underflow.
+Syntax:
+  ON SIZE ERROR
+    <statements>.
+Uses:
+- Error trapping in arithmetic operations.`
+    );
   }
 };
 
@@ -910,7 +1278,14 @@ Blockly.Blocks['cobol_not_on_size_error'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(300);
-    this.setTooltip('Handle successful arithmetic operations');
+    this.setTooltip(
+      `NOT ON SIZE ERROR – Execute when arithmetic succeeds.
+Syntax:
+  NOT ON SIZE ERROR
+    <statements>.
+Uses:
+- Continue normal flow after arithmetic.`
+    );
   }
 };
 
@@ -921,14 +1296,20 @@ Blockly.Blocks['cobol_invalid_key'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(300);
-    this.setTooltip('Handle invalid key errors in file operations');
+    this.setTooltip(
+      `INVALID KEY – Handle database or indexed file errors.
+Syntax:
+  INVALID KEY
+    <statements>.
+Uses:
+- Error handling for READ/WRITE on indexed files.`
+    );
   }
 };
 
 // =============================================
-// SORT AND MERGE BLOCKS
+// SORT & MERGE
 // =============================================
-
 Blockly.Blocks['cobol_sort'] = {
   init() {
     this.appendDummyInput().appendField('SORT')
@@ -946,7 +1327,16 @@ Blockly.Blocks['cobol_sort'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(180);
-    this.setTooltip('Sort file records');
+    this.setTooltip(
+      `SORT – Sort records of a file into new file.
+Syntax:
+  SORT <sort-file>
+    ON {ASCENDING|DESCENDING} KEY <field>
+    USING <in-file>
+    GIVING <out-file>.
+Uses:
+- Batch ordering of data.`
+    );
   }
 };
 
@@ -967,14 +1357,22 @@ Blockly.Blocks['cobol_merge'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(180);
-    this.setTooltip('Merge multiple files');
+    this.setTooltip(
+      `MERGE – Combine two or more sorted files into one.
+Syntax:
+  MERGE <merge-file>
+    ON {ASCENDING|DESCENDING} KEY <field>
+    USING <in-file-list>
+    GIVING <out-file>.
+Uses:
+- Efficient merge of sorted datasets.`
+    );
   }
 };
 
 // =============================================
 // TABLE HANDLING BLOCKS
 // =============================================
-
 Blockly.Blocks['cobol_search'] = {
   init() {
     this.appendDummyInput().appendField('SEARCH')
@@ -986,8 +1384,16 @@ Blockly.Blocks['cobol_search'] = {
     this.appendStatementInput('FOUND_ACTION').appendField('DO');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(270);
-    this.setTooltip('Sequential search of table');
+    this.setColour(120	);
+    this.setTooltip(
+      `SEARCH – Sequential search in table (OCCURS).
+Syntax:
+  SEARCH <table>
+    AT END <action>
+    WHEN <cond> DO <statements>.
+Uses:
+- Iterate table until condition or end reached.`
+    );
   }
 };
 
@@ -1002,15 +1408,22 @@ Blockly.Blocks['cobol_search_all'] = {
     this.appendStatementInput('FOUND_ACTION').appendField('DO');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(270);
-    this.setTooltip('Binary search of sorted table');
+    this.setColour(120	);
+    this.setTooltip(
+      `SEARCH ALL – Binary search on sorted table.
+Syntax:
+  SEARCH ALL <table>
+    AT END <action>
+    WHEN <cond> DO <statements>.
+Uses:
+- Fast lookup in sorted OCCURS tables.`
+    );
   }
 };
 
 // =============================================
 // REPORT WRITER BLOCKS
 // =============================================
-
 Blockly.Blocks['cobol_report_section'] = {
   init() {
     this.appendDummyInput().appendField('REPORT SECTION.');
@@ -1019,7 +1432,14 @@ Blockly.Blocks['cobol_report_section'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(320);
-    this.setTooltip('Report description');
+    this.setTooltip(
+      `REPORT SECTION – Define structure for report writer.
+Syntax:
+  REPORT SECTION.
+    RD <report-name>.
+Uses:
+- Initialize report definitions.`
+    );
   }
 };
 
@@ -1030,7 +1450,13 @@ Blockly.Blocks['cobol_initiate'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(320);
-    this.setTooltip('Initiate report processing');
+    this.setTooltip(
+      `INITIATE – Start report processing at heading.
+Syntax:
+  INITIATE <report-name>.
+Uses:
+- Trigger report generation.`
+    );
   }
 };
 
@@ -1041,7 +1467,13 @@ Blockly.Blocks['cobol_generate'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(320);
-    this.setTooltip('Generate report line');
+    this.setTooltip(
+      `GENERATE – Emit a detail line in report.
+Syntax:
+  GENERATE <detail-line-name>.
+Uses:
+- Output report records.`
+    );
   }
 };
 
@@ -1052,22 +1484,33 @@ Blockly.Blocks['cobol_terminate'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(320);
-    this.setTooltip('Terminate report processing');
+    this.setTooltip(
+      `TERMINATE – End report processing with trailer.
+Syntax:
+  TERMINATE <report-name>.
+Uses:
+- Close out report.`
+    );
   }
 };
 
 // =============================================
 // SPECIAL COBOL CONSTRUCTS
 // =============================================
-
 Blockly.Blocks['cobol_copy'] = {
   init() {
     this.appendDummyInput().appendField('COPY')
       .appendField(new Blockly.FieldTextInput('COPYBOOK'), 'COPYBOOK');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(350);
-    this.setTooltip('Include copybook');
+    this.setColour(200);
+    this.setTooltip(
+      `COPY – Include external copybook into source.
+Syntax:
+  COPY <copybook>.
+Uses:
+- Reuse common declarations.`
+    );
   }
 };
 
@@ -1081,8 +1524,14 @@ Blockly.Blocks['cobol_replace'] = {
       .appendField(new Blockly.FieldTextInput('==NEW=='), 'NEW');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(350);
-    this.setTooltip('Include copybook with text replacement');
+    this.setColour(200);
+    this.setTooltip(
+      `COPY REPLACING – Include copybook with text substitution.
+Syntax:
+  COPY <copybook> REPLACING ==old== BY ==new==.
+Uses:
+- Parameterize copybooks.`
+    );
   }
 };
 
@@ -1093,8 +1542,14 @@ Blockly.Blocks['cobol_exec_sql'] = {
     this.appendDummyInput().appendField('END-EXEC');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(380);
-    this.setTooltip('Embedded SQL statement');
+    this.setColour(200);
+    this.setTooltip(
+      `EXEC SQL – Embed SQL inside COBOL.
+Syntax:
+  EXEC SQL <sql> END-EXEC.
+Uses:
+- Database integration.`
+    );
   }
 };
 
@@ -1104,23 +1559,34 @@ Blockly.Blocks['cobol_exec_cics'] = {
     this.appendDummyInput().appendField(new Blockly.FieldTextInput('CICS COMMAND'), 'CICS');
     this.appendDummyInput().appendField('END-EXEC');
     this.setPreviousStatement(true);
-    this.setNextStrategy(true);
-    this.setColour(380);
-    this.setTooltip('Embedded CICS command');
+    this.setNextStatement(true);
+    this.setColour(200);
+    this.setTooltip(
+      `EXEC CICS – Embed CICS commands in COBOL.
+Syntax:
+  EXEC CICS <command> END-EXEC.
+Uses:
+- Mainframe transaction processing.`
+    );
   }
 };
 
 // =============================================
 // COMPILER DIRECTIVES
 // =============================================
-
 Blockly.Blocks['cobol_eject'] = {
   init() {
     this.appendDummyInput().appendField('EJECT');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(400);
-    this.setTooltip('Page eject in source listing');
+    this.setColour(50	);
+    this.setTooltip(
+      `EJECT – Force page break in source listing.
+Syntax:
+  EJECT.
+Uses:
+- Organize printed listings.`
+    );
   }
 };
 
@@ -1130,8 +1596,14 @@ Blockly.Blocks['cobol_skip'] = {
       .appendField(new Blockly.FieldTextInput('1'), 'LINES');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(400);
-    this.setTooltip('Skip lines in source listing');
+    this.setColour(50	);
+    this.setTooltip(
+      `SKIP – Advance listing by given lines.
+Syntax:
+  SKIP <n>.
+Uses:
+- Format printed source.`
+    );
   }
 };
 
@@ -1141,7 +1613,13 @@ Blockly.Blocks['cobol_title'] = {
       .appendField(new Blockly.FieldTextInput('Program Title'), 'TITLE');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(400);
-    this.setTooltip('Set listing title');
+    this.setColour(50	);
+    this.setTooltip(
+      `TITLE – Set title for source listing.
+Syntax:
+  TITLE "<text>".
+Uses:
+- Document program name in listings.`
+    );
   }
 };

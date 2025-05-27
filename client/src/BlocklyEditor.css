@@ -1,0 +1,117 @@
+
+.blocklyMainBackground {
+  fill: #1e1e2f !important;
+}
+.blocklyFlyout .blocklyBlockBackground {
+  fill: #2d2d2d !important;
+  fill-opacity: 1 !important;
+}
+.blocklyFlyout text {
+  fill: #ffffff !important;
+}
+.blocklyScrollbarBackground { fill: #333 !important; }
+.blocklyScrollbarHandle     { fill: #666 !important; }
+.dark-blockly-container {
+  height: 100;
+  width: 100%;
+  background-color: #1e1e2f; 
+}
+
+.blocklyMainBackground {
+  fill: #1e1e2f !important; 
+}
+
+.blocklySvg {
+  background-color: #1e1e2f !important;
+}
+
+.blocklyToolbox {
+  background-color: #252535 !important;
+  color: #f0f0f0;
+}
+
+.blocklyTreeRow {
+  background-color: #252535 !important;
+    height: 80px !important;   
+  color: #fff;
+}
+.blocklyTreeIcon {
+  display: none !important;
+}
+.blocklyTreeRow .blocklyTreeButton {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  margin: 8px auto !important;     /* center horizontally + vertical spacing */
+  background-color: var(--tree-button-bg, #444) !important;
+  border: 2px solid var(--tree-button-border, #333) !important;
+}
+.blocklyTreeRowSelected .blocklyTreeButton {
+  background-color: var(--tree-button-active, #00c6ff) !important;
+  border-color: var(--tree-button-active-border, #0088aa) !important;
+}
+
+.blocklyTreeLabel {
+  white-space: normal !important;   /* allow wrapping */
+  text-align: center !important;
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  margin: 0 auto 4px !important;
+  color: #f0f0f0 !important;
+  width: 100% !important;
+}
+
+.blocklyFlyoutBackground {
+  fill: #2b2b3c !important;
+  fill-opacity: 1 !important;
+}
+
+.blocklyScrollbarBackground {
+  fill: #333 !important;
+}
+
+.blocklyScrollbarHandle {
+  fill: #666 !important;
+}
+
+.blocklyFlyoutLabelText {
+  fill: #aaa !important;
+}
+
+.blocklyTrash {
+  filter: brightness(0.8);
+}
+
+.blocklyFlyout {
+  background-color: #1e1e1e !important;
+}
+.blocklyToolboxCategoryLabel {
+  color: #5f5fad !important; 
+  opacity: 1 !important;     
+}
+.blocklyToolboxCategory {
+  background-color: #efefef !important; 
+  color: #7a5ba5 !important;
+  opacity: 1 !important;
+}
+
+
+/* Dark background for blocks inside the flyout */
+.blocklyFlyout .blocklyBlockBackground {
+  fill: #2d2d2d !important;
+  fill-opacity: 1 !important;
+}
+
+.blocklyFlyout text {
+  fill: #ffffff !important;
+}
+
+.blocklyFlyout .blocklyBlockBackground {
+  fill: #2d2d2d !important;
+  fill-opacity: 1 !important; 
+}
+.blocklyFlyoutLabelText {
+  font-size: 20px !important; 
+  font-weight: bold !important;
+  fill: #ffffff !important; 
+}
