@@ -7,6 +7,9 @@ import os
 
 app = Flask(__name__)
 CORS(app)
+@app.route("/")
+def home():
+    return "Welcome to the homepage!"
 
 @app.route('/run', methods=['POST'])
 def run_cobol():
