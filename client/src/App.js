@@ -11,7 +11,7 @@ function App() {
 
   const runCode = async () => {
    try {
-  const res = await axios.post('https://cobol-visualizer.onrender.com/run', { code });
+  const res = await axios.post('https://cobol-visualizer-1.onrender.com/run', { code });
   setOutput(res.data.output);
 } catch (err) {
   const e = err.response?.data;
