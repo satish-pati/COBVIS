@@ -1,4 +1,3 @@
-# Use a base image that supports Python + GnuCOBOL
 FROM ubuntu:22.04
 
 # Install system dependencies
@@ -8,17 +7,17 @@ RUN apt-get update && apt-get install -y \
     gnucobol \
     && apt-get clean
 
-# Copy project files
-WORKDIR /app
+# Set working directory to /server and copy files
+WORKDIR /server
 COPY . .
 
 # Install Python dependencies
 RUN pip3 install -r requirements.txt
 
-# Expose your Flask app
-ENV FLASK_APP=server/app.py
+# Set Flask environment variables
+ENV FLASK_APP=app
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_RUN_PORT=10000
 
-# Start Flask server
+# Run the Flask app
 CMD ["flask", "run"]
