@@ -1,12 +1,6 @@
 services:
   - type: web
-    name: cobol-visualizer
-    env: python
-    buildCommand: |
-      apt-get update && apt-get install -y gnucobol
-      pip install -r requirements.txt
-    startCommand: python server/app.py
+    name: cobol-flask-app
+    env: docker
     plan: free
-    envVars:
-      - key: FLASK_ENV
-        value: production
+    region: oregon
