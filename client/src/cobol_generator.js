@@ -388,11 +388,20 @@ cobolGenerator['cobol_condition'] = block => {
   const code = `${left} ${op} ${right}`;
   return [code, cobolGenerator.ORDER_ATOMIC];
 };
-
+/*
 cobolGenerator['cobol_evaluate'] = block => {
   const val = cobolGenerator.valueToCode(block, 'VALUE', cobolGenerator.ORDER_NONE) || 'UNKNOWN';
   const body = cobolGenerator.statementToCode(block, 'WHEN');
   return `EVALUATE ${val}\n${body}END-EVALUATE.\n`;
+};
+*/
+cobolGenerator['cobol_evaluate'] = function(block) {
+  // 1) Grab the variable name from the field 'VAR_NAME'
+  const varName = block.getFieldValue('VAR');
+  // 2) Generate all nested WHEN statements from the 'WHEN' input
+  const whenBranch = cobolGenerator.statementToCode(block, 'WHEN');
+  // 3) Emit the final COBOL code
+  return `EVALUATE ${varName}\n${whenBranch}END‐EVALUATE.\n`;
 };
 
 cobolGenerator['cobol_when_case'] = block => {
@@ -406,9 +415,11 @@ cobolGenerator['cobol_when_other'] = block => {
   return `  WHEN OTHER\n${body}`;
 };
 
-// =============================================
-// LOOP GENERATORS
-// =============================================
+
+cobolGenerator['cobol_end_perform'] = function(block) {
+  return 'END-PERFORM.\n';
+};
+
 
 cobolGenerator['cobol_perform'] = block => {
   const para = block.getFieldValue('PARA');
@@ -793,3 +804,4 @@ cobolGenerator.forBlock['cobolif_display'] = cobolGenerator['cobolif_display'];
 cobolGenerator.forBlock['cobol_environment_block'] = cobolGenerator['cobol_environment_block'];
 cobolGenerator.forBlock['cobol_environment_division'] = cobolGenerator['cobol_environment_division'];
 cobolGenerator.forBlock['cobol_full_data_division'] = cobolGenerator['cobol_full_data_division'];
+cobolGenerator.forBlock['cobol_end_perform'] = cobolGenerator['cobol_end_perform'];
