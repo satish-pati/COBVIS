@@ -216,6 +216,8 @@ topBlocks.forEach(block => {
   <block type="cobol_perform_until" />
   <block type="cobol_perform_varying" />
   <block type="cobol_goto" />
+    <block type="cobol_end_perform" />
+
 
   <label text="🛠️ Program Control" />
   <block type="cobol_call" />
@@ -224,6 +226,7 @@ topBlocks.forEach(block => {
   <block type="cobol_exit_program" />
   <block type="cobol_stop_run" />
   <block type="cobol_return" />
+
 
 
 </category>
