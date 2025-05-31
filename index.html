@@ -60,15 +60,16 @@
                     <div class="doc-content col-md-9 col-12 order-1">
                         <div class="content-inner">
                             <section id="download-section" class="doc-section">
-                                <h1 class="section-title">LegacyLens: Legacy Scoring for GitHub Repositories</h1>
+                                <h1 class="section-title">COBMAKER – Interactive Block-Based Programming
+Environment for Legacy Language Learning and
+Real-Time Code Generation</h1>
                                 <br>
                                 <h3 class="block-title">Tool Description</h3>
                                 <div class="section-block">
                                     <p>
-                                        LegacyLens was designed as a light-weight chrome extension to assess GitHub repositories in real time to evaluate the
-                                        legacy state of the repository, with the aim of helping the developers make a quick informed decision about the future
-                                        of the repository. The assessment is done through analyzing two key categories of metrics - 1.) age of the repository and 2.)
-                                        code complexity metrics. These metrics provide information about the repository which is not explicitly mentioned in the existing documentation.
+                                       COBVIS is an innovative, browser-based learning environment designed to teach COBOL—a foundational legacy programming language—using modern visual programming principles. Targeting both novice programmers and experienced developers transitioning to legacy system maintenance, COBVIS leverages intuitive drag-and-drop interfaces, hierarchical section visualizations, and real-time code generation to bridge the gap between modern learning styles and the structured syntax of COBOL.
+
+COBVIS transforms traditionally tedious COBOL education into an engaging, interactive experience. Inspired by the success of visual programming platforms like Scratch and Blockly, COBVIS is the first comprehensive visual learning platform built specifically for COBOL, empowering the next generation of developers to sustain and innovate on critical legacy infrastructure.
                                     </p>
 <!--                                     <p style="color: red;">
                                         <u>Note</u>: The current version of eTagger may have issues on runnning on some architectures of Mac systems.  
@@ -92,20 +93,14 @@
                                             The software was tested on a Windows 11 system with 16 GB RAM.
                                             <br/>
                                         <b>Software:</b>
-
-                                        <ul>
-                                            <li><a href = "https://www.python.org/downloads/">Python</a> version 3.10 +</li>
-                                            <!-- <li><a href="https://jupyter.org/install">Jupyter</a> version 1.0.0, if you're planning to run the evaluation notebooks</li> -->
-                                            <!-- <li><a href="https://pypi.org/project/google-generativeai/">google-generativeai</a> version 0.4.0</li> -->
-                                            <!-- <li><a href="https://docs.streamlit.io/get-started/installation">streamlit</a> version 1.38.0 for GUI frontend</li> -->
-                                            <!-- <li><a href="https://pypi.org/project/rouge-score/">rouge-score</a> version 0.1.2 for evaluation scoring</li> -->
-                                            <!-- <li><a href="https://pypi.org/project/evaluate/">evaluate</a> version 0.4.1</li> -->
-                                            <li><a href="https://pypi.org/project/fastapi-framework/">fastapi</a></li>
-                                            <li><a href="https://pypi.org/project/uvicorn/">uvicorn</a></li>
-                                            <li><a href="https://pypi.org/project/lizard/1.8.7/">lizard</a></li>
-                                            <li><a href="https://pypi.org/project/pygit2/0.16.2/">pygit2</a></li>
-                                            <li><a href="https://pypi.org/project/pygount/">pygount</a></li>
-                                            <li>A Chormium-based browser</li>
+<ul> <li><a href="https://nodejs.org/en/download/">Node.js</a> version 16 or higher</li>
+     <li><a href="https://react.dev/">React</a> (via <code>react-scripts</code> 5.0.1)</li> 
+    <li><a href="https://www.python.org/downloads/">Python</a> version 3.10+</li>
+     <li><a href="https://pypi.org/project/Flask/">Flask</a> (Python backend framework)</li> 
+      <li><a href="https://gnucobol.sourceforge.io/">GnuCOBOL</a> (for COBOL code compilation)</li> 
+      <li><a href="https://developers.google.com/blockly">Blockly</a> (Visual block-based programming library)</li>
+       <li><a href="https://github.com/tomkp/react-split-pane">react-split-pane</a> (for UI layout)</li>
+        <li><a href="https://axios-http.com/">Axios</a> (for frontend-backend communication)</li> 
                                         </ul>
                                         <br/>
                                         <b>API Tokens and Accesses</b>
@@ -134,52 +129,77 @@
                                 </section>
 
                                 <section id="usage" class="doc-section">
-                                    <h2 class="section-title">Usage</h2>
-                                    <div class="section-block">
-                                        <p>
-                                            The tool is designed as a Chrome extension. The extension can be installed by following the below steps:
-                                        </p>
-                                        <ol>
-                                                <li>Clone the GitHub repository by running the following command:
-                                                    <div class="code-block">
-                                                        <code>git clone https://github.com/Chiranjeevi2001/legacylens.git </code>
-                                                    </div>
-                                                </li>
+    <h2 class="section-title">Usage</h2>
+    <div class="section-block">
+        <p>
+        The tool consists of a frontend built using React and a backend powered by Flask. Follow the steps below to run COBMAKER locally on your machine:
+        </p>
+        <ol>
+            <li>Clone the GitHub repository by running the following command:
+                <div class="code-block">
+                    <code>git clone https://github.com/satish-pati/COBMAKER.git</code><br/>
+                    <code>cd COBMAKER</code>
+                </div>
+            </li>
 
-                                                <li>Provide the GitHub Personal Token for rate limit extension
-                                                    <ul>
-                                                        <li>Create your <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token">GitHub PAT</a> (Leave permissions as default)</li>
-                                                        <li>Copy the token and paste it in the RHS of line number 4 in `popup.js` file:
-                                                            <div class="code-block">
-                                                                <code>const token = 'PASTE YOUR TOKEN HERE' </code>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </li>
+            <li>Install Frontend Dependencies:
+                <div class="code-block">
+                    <code>cd client</code><br/>
+                    <code>npm install</code>
+                </div>
+            </li>
 
-                                                <li>Open Chrome Extensions manager
-                                                    <ul>
-                                                        <li>Open Google Chrome or any Chormium-based browser</li>
-                                                        <li>Navigate to the extensions page by entering <code>chrome://extensions</code> in the address bar</li>
-                                                    </ul>
-                                                </li>
+            <li>Install Backend Dependencies:
+    <ul>
+        <li>Navigate to the server directory and create a virtual environment:</li>
+        
+             <li><b>Note for Windows users:</b> The backend is supported only in Linux environments. You must use <a href="https://learn.microsoft.com/en-us/windows/wsl/install">WSL (Windows Subsystem for Linux)</a> with Ubuntu or any other supported distribution.</li>
+        
+        <li>Launch your WSL terminal (e.g., Ubuntu) and navigate to the backend directory:</li>
+            <div class="code-block">
+            <code>cd ../server</code><br/>
+            <code>python3 -m venv venv</code>
+        </div>
 
-                                                <li>Enable Developer Mode: In the top right corner, toggle the <i>Developer Mode</i> switch to enable it</li>
-                                                <img class="img-fluid" src="assets/images/demo/load_unpacked.png" alt="screenshot" width="500" height="700"/>
+        <li>Activate the virtual environment:</li>
+                <div class="code-block">
+            <code>source venv/bin/activate</code>
+        </div>
 
-                                                <li>Load the extension
-                                                    <ul>
-                                                        <li>Click the <i>Load Unpacked</i> button</li>
-                                                        <li>In the file browser, select the folder where the repository was cloned (it should contain `manifest.json` file)</li>
-                                                        <li>Click <i>Open</i></li>
-                                                        <li>Click on the pin icon to pin the extension to your browser's toolbar</li>
-                                                    </ul>
-                                                </li>
-                                                
+        
 
-                                                <li>Enjoy the extension!: Run the extension on the main page of any public GitHub repository to see the assessment results</li>
+        <li>Install the required Python packages:</li>
+        <div class="code-block">
+            <code>pip install -r requirements.txt</code>
+        </div>
+    </ul>
+</li>
 
-                                </section>
+<li>Start the Flask server (backend):
+    <div class="code-block">
+        <code>python3 app.py</code>
+    </div>
+</li>
+
+
+            <li>Start the React frontend:
+                <div class="code-block">
+                    <code>cd ../client</code><br/>
+                    <code>npm start</code>
+                </div>
+            </li>
+
+            <li>Access the Tool:
+                <p>Open a Chromium-based browser and go to the following address:</p>
+                <div class="code-block">
+                    <code>http://localhost:3000</code>
+                </div>
+            </li>
+        </ol>
+        <p>Once both servers are running, you can start using COBMAKER to visualize and assess COBOL code interactions.</p>
+    </div>
+</section>
+
       
                             <section id="icons-section" class="doc-section">
                                 <h2 class="section-title">Approach diagram</h2>
@@ -217,9 +237,15 @@
                             <section id="uses-section" class="doc-section">
                                 <h2 class="section-title">Goal</h2>
                                 <div class="section-block">
-                                    Helps developers and open-source contributors in assessing the legacy state of large repositories. This task, if done manually, is time-consuming, which will slow
-                                    down the contribution rate. However, if there was a quicker and automated way to know the state of the repository, it would allow the developers to make quick decisions 
-                                    instead of spending their time manually inspecting the repository.
+                                    Helps learners and organizations rapidly onboard new COBOL developers by providing an interactive, block-based visual environment that generates real-time COBOL code. Manually teaching COBOL through text-based tutorials is slow and error-prone, often deterring modern learners. With COBVIS, both novice and experienced programmers can drag and drop intuitive blocks to explore COBOL syntax, receive immediate compilation feedback, and build working programs—significantly reducing the time and effort required to understand and maintain critical legacy systems.
+
+
+
+
+
+
+
+
                                 </div>
                                 
                             </section>
