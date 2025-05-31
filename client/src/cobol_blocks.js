@@ -21,12 +21,16 @@ Blockly.Blocks['cobol_identification_division'] = {
       .appendField(new Blockly.FieldTextInput('NONE'), 'SECURITY');
     this.setNextStatement(true);
     this.setColour(110);
-    this.setTooltip(`IDENTIFICATION DIVISION - Specifies metadata about the COBOL program.
-Syntax:
-  IDENTIFICATION DIVISION.
-  PROGRAM-ID. name.
-  AUTHOR. name.
-Used to define the identity and documentation of the COBOL source file.`);
+    this.setTooltip(`
+
+ "IDENTIFICATION DIVISION.": "Starts the COBOL program. This division is mandatory and provides metadata about the program.",
+  "PROGRAM-ID.": "Defines the name of the program. Mandatory field. Must be a valid COBOL identifier.",
+  "AUTHOR.": "Optional. Specifies the name of the person or team who wrote the program.",
+  "INSTALLATION.": "Optional. Indicates the name of the organization or site where the program was developed or is used.",
+  "DATE-WRITTEN.": "Optional. Specifies the date on which the program was originally written.",
+  "DATE-COMPILED.": "Optional. Indicates the last compilation date. 'AUTO' may be used to auto-fill the date if supported.",
+  "SECURITY.": "Optional. Describes the program’s security level. Common values: NONE, CONFIDENTIAL, INTERNAL USE ONLY."
+}`);
   }
 };
 
@@ -37,7 +41,8 @@ Blockly.Blocks['cobol_remarks'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(110);
-    this.setTooltip('REMARKS - Adds human-readable comments or documentation.\nSyntax: REMARKS. text.');
+    this.setTooltip(`REMARKS.: Optional. Used for general comments, program description, or notes. Ignored by the compiler.
+\nSyntax: REMARKS. text.`);
   }
 };
 
@@ -70,7 +75,7 @@ Blockly.Blocks['cobol_configuration_section'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(20);
-    this.setTooltip(`CONFIGURATION SECTION - Defines compiler and hardware details.\nSyntax: CONFIGURATION SECTION.\n  SOURCE-COMPUTER. name.\n  OBJECT-COMPUTER. name.`);
+    this.setTooltip(`CONFIGURATION SECTION (Optional)- Defines compiler and hardware details.\nSyntax: CONFIGURATION SECTION.\n  SOURCE-COMPUTER. name.\n  OBJECT-COMPUTER. name.`);
   }
 };
 
@@ -81,7 +86,19 @@ Blockly.Blocks['cobol_input_output_section'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(20);
-    this.setTooltip('Input-Output section for file control');
+    this.setTooltip(`INPUT-OUTPUT SECTION (Optional, but required if file I/O is used)
+   - Declares file handling and control mechanisms.
+   - Syntax:
+     INPUT-OUTPUT SECTION.
+     FILE-CONTROL.                     (Required if using files)
+     SELECT <file-id>
+       ASSIGN TO <filename>
+       ORGANIZATION IS <type>.         (Optional)
+       ACCESS MODE IS <mode>.          (Optional)
+
+Purpose:
+- Configures system environment and file handling.
+- Needed when the COBOL program deals with external files or specific machine features.`);
   }
 };
 
@@ -90,7 +107,7 @@ Blockly.Blocks['cobol_select_file'] = {
     this.appendDummyInput().appendField('SELECT')
       .appendField(new Blockly.FieldTextInput('FILE-ID'), 'SELECT');
     this.appendDummyInput().appendField('ASSIGN TO')
-      .appendField(new Blockly.FieldTextInput('filename.txt'), 'ASSIGN');
+      .appendField(new Blockly.FieldTextInput('"filename.txt"'), 'ASSIGN');
     this.appendDummyInput().appendField('ORGANIZATION IS')
       .appendField(new Blockly.FieldDropdown([
         ["SEQUENTIAL", "SEQUENTIAL"],
@@ -107,7 +124,24 @@ Blockly.Blocks['cobol_select_file'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(20);
-    this.setTooltip('Select file with organization and access mode');
+    this.setTooltip(`SELECT Clause – Defines how a file is identified and accessed by the COBOL program.
+
+Fields:
+- SELECT <file-id> (Mandatory): Logical name for the file used in the program.
+- ASSIGN TO <filename> (Mandatory): Physical file name or device assignment.
+- ORGANIZATION IS <type> (Optional): Specifies file structure. Common values:
+    - SEQUENTIAL: Records are stored one after another.
+    - LINE SEQUENTIAL: Text lines terminated by newline (typical for text files).
+    - INDEXED: Records accessed by key values.
+    - RELATIVE: Records accessed by position.
+- ACCESS MODE IS <mode> (Optional): Defines how records are accessed.
+    - SEQUENTIAL: Access records in order.
+    - RANDOM: Access specific records directly.
+    - DYNAMIC: Allows both sequential and random access.
+
+Note:
+- ORGANIZATION and ACCESS MODE are optional but commonly used for defining file behavior.
+- Required when using FILE-CONTROL in the INPUT-OUTPUT SECTION.`);
   }
 }; 
 
@@ -118,24 +152,32 @@ Blockly.Blocks['cobol_environment_division'] = {
     this.setNextStatement(true);
     this.setColour(20);
     this.setTooltip(`ENVIRONMENT DIVISION – Declares the system and file environment for the program.
-Includes:
-1. CONFIGURATION SECTION – Defines the target computer systems and any language-specific settings.
-   Syntax:
+
+(Mandatory if your program interacts with external files or devices.)
+
+Includes two main sections:
+
+1. CONFIGURATION SECTION (Optional)
+   - Describes computer system and language-related configuration.
+   - Syntax:
      CONFIGURATION SECTION.
-     SOURCE-COMPUTER. <system>.
-     OBJECT-COMPUTER. <system>.
-     SPECIAL-NAMES. <rules>.
-2. INPUT-OUTPUT SECTION – Declares file usage and control mechanisms.
-   Syntax:
+     SOURCE-COMPUTER. <system>.        (Optional)
+     OBJECT-COMPUTER. <system>.        (Optional)
+     SPECIAL-NAMES. <rules>.           (Optional)
+
+2. INPUT-OUTPUT SECTION (Optional, but required if file I/O is used)
+   - Declares file handling and control mechanisms.
+   - Syntax:
      INPUT-OUTPUT SECTION.
-     FILE-CONTROL.
+     FILE-CONTROL.                     (Required if using files)
      SELECT <file-id>
        ASSIGN TO <filename>
-       ORGANIZATION IS <type>
-       ACCESS MODE IS <mode>.
+       ORGANIZATION IS <type>.         (Optional)
+       ACCESS MODE IS <mode>.          (Optional)
+
 Purpose:
-- Configures the execution environment and file handling for the COBOL program.
-- Essential for any COBOL program interacting with files or using system-specific features.`);
+- Configures system environment and file handling.
+- Needed when the COBOL program deals with external files or specific machine features.`);
   }
 };
 
@@ -149,15 +191,36 @@ Blockly.Blocks['cobol_data_division'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(50	);
-    this.setTooltip(`This block represents a full COBOL DATA DIVISION template, including:
-1. FILE SECTION – to define files and record layouts.
-2. FD RECORD – file descriptor with layout.
-3. WORKING-STORAGE SECTION – for program variables.
-4. VARIABLE DECLARATION – to define individual data items.
-5. GROUP ITEM – for structuring related fields.
-6. OCCURS CLAUSE – to declare arrays.
-7. LINKAGE SECTION – for external parameters.
-Drag this block to insert the full sequence.`);
+    this.setTooltip(`DATA DIVISION (Optional) but commonly used  for Declaring all data items used by the COBOL program.
+
+Includes the following sections:
+
+1. FILE SECTION (Optional)
+   - Used to define input/output file structures.
+   - Contains FD (File Description) entries.
+
+2. FD RECORD (Optional, used within FILE SECTION)
+   - Describes the structure of a file record.
+
+3. WORKING-STORAGE SECTION (Optional but commonly used)
+   - Declares variables and constants for internal program use.
+
+4. VARIABLE DECLARATION (Optional)
+   - Defines individual data items using levels (e.g., 01, 05, 77).
+
+5. GROUP ITEM (Optional)
+   - Groups related data items under a common name using levels.
+
+6. OCCURS CLAUSE (Optional)
+   - Defines arrays or tables of repeating items.
+
+7. LINKAGE SECTION (Optional)
+   - Used for parameters passed to the program (typically for called programs or subroutines).
+
+Note:
+- DATA DIVISION is mandatory in most programs unless no data is declared.
+- Most sections inside are optional, but WORKING-STORAGE is very common.
+- This block provides a high-level structure for COBOL data definitions.`);
   }
 };
 
@@ -167,7 +230,7 @@ Blockly.Blocks['cobol_file_section'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(50);
-    this.setTooltip(`FILE SECTION – Defines the layout of input/output files.
+    this.setTooltip(`FILE SECTION(Optional) – Defines the layout of input/output files.
 Syntax:
   FILE SECTION.
 Used under DATA DIVISION to declare FD entries that describe file structure, record format, and block size.`);
@@ -191,7 +254,7 @@ Blockly.Blocks['cobol_fd_record'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(50);
-    this.setTooltip(`FD <name> – Declares file descriptor and record layout.
+    this.setTooltip(`FD <name>  (Optional, used within FILE SECTION)– Declares file descriptor and record layout.
 Syntax:
   FD <name>
     LABEL RECORDS ARE <STANDARD|OMITTED>
@@ -207,7 +270,7 @@ Blockly.Blocks['cobol_working_storage_section'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(50);
-    this.setTooltip(`WORKING-STORAGE SECTION – Declares global variables.
+    this.setTooltip(`WORKING-STORAGE SECTION (Optional but commonly used) – Declares global variables.
 Used under DATA DIVISION to define variables that persist throughout program execution.
 Syntax:
   WORKING-STORAGE SECTION.
@@ -243,7 +306,7 @@ Blockly.Blocks['cobol_variable_declaration'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(50);
-    this.setTooltip(`Declare a COBOL variable.
+    this.setTooltip(`VARIABLE DECLARATION (Optional)- Declare a COBOL variable.
 Specify level number, variable name, data type (PIC clause), and optional initial VALUE.
 Example:
   01 AGE PIC 9(2) VALUE 25.`);
@@ -265,7 +328,7 @@ Blockly.Blocks['cobol_group_item'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(50);
-    this.setTooltip(`Group Item – Combines multiple subordinate items under one name.
+    this.setTooltip(`Group Item (Optional)– Combines multiple subordinate items under one name.
 Used to group related data fields, allowing hierarchical data structures.
 Syntax:
   <level> <group-name>.
@@ -295,7 +358,7 @@ Blockly.Blocks['cobol_occurs_clause'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(50);
-    this.setTooltip(`OCCURS Clause – Declares an array (repeating group) of data items.
+    this.setTooltip(`OCCURS Clause (Optional) – Declares an array (repeating group) of data items.
 Used to define a table or array in COBOL.
 Syntax:
   <level> <array-name> OCCURS <n> TIMES
@@ -310,7 +373,7 @@ Blockly.Blocks['cobol_linkage_section'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(80);
-    this.setTooltip(`LINKAGE SECTION – Declares variables passed from other programs.
+    this.setTooltip(`LINKAGE SECTION(Optional) – Declares variables passed from other programs.
 Used in subprograms to receive data through the CALL statement.
 Variables must be defined in the PROCEDURE DIVISION USING clause.`);
   }
@@ -326,7 +389,7 @@ Blockly.Blocks['cobol_procedure_division'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(110);
-    this.setTooltip(`PROCEDURE DIVISION – Contains the executable logic of the COBOL program.
+    this.setTooltip(`PROCEDURE DIVISION (mandatory)– Contains the executable logic of the COBOL program.
 Syntax:
   PROCEDURE DIVISION.
       <statements and paragraphs>
@@ -853,7 +916,7 @@ Uses:
     );
   }
 };
-
+/*
 Blockly.Blocks['cobol_evaluate'] = {
   init() {
     this.appendValueInput('VALUE')
@@ -875,7 +938,34 @@ Uses:
 - Simplify multiple condition branching.`
     );
   }
+};*/
+Blockly.Blocks['cobol_evaluate'] = {
+  init() {
+    // 1) Create a single dummy input with a variable‐field for EVALUATE <var-name>
+    this.appendDummyInput()
+        .appendField('EVALUATE')
+              .appendField(new Blockly.FieldTextInput('VAR-NAME'), 'VAR');
+
+    // 2) Keep the WHEN … statements as before
+    this.appendStatementInput('WHEN')
+        .appendField('WHEN');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip(
+      `EVALUATE – Multi‐case conditional (switch).\n` +
+      `Syntax:\n` +
+      `  EVALUATE <identifier>\n` +
+      `    WHEN <value> => <statements>\n` +
+      `    WHEN OTHER => <statements>\n` +
+      `  END‐EVALUATE.\n` +
+      `Uses:\n` +
+      `- Simplify multiple condition branching, using a COBOL variable (or literal) to compare.`
+    );
+  }
 };
+
+
 
 Blockly.Blocks['cobol_when_case'] = {
   init() {
@@ -916,6 +1006,18 @@ Uses:
 // =============================================
 // LOOP & PERFORM BLOCKS
 // =============================================
+Blockly.Blocks['cobol_end_perform'] = {
+  init() {
+    this.appendDummyInput().appendField('END-PERFORM');
+    this.setPreviousStatement(true);
+    this.setColour(230);
+    this.setTooltip(
+      `END-PERFORM – Terminates a PERFORM block.\n` +
+      `Use after conditional or looping PERFORM constructs.`
+    );
+  }
+};
+
 Blockly.Blocks['cobol_perform'] = {
   init() {
     this.appendDummyInput().appendField('PERFORM')
