@@ -401,7 +401,7 @@ cobolGenerator['cobol_evaluate'] = function(block) {
   // 2) Generate all nested WHEN statements from the 'WHEN' input
   const whenBranch = cobolGenerator.statementToCode(block, 'WHEN');
   // 3) Emit the final COBOL code
-  return `EVALUATE ${varName}\n${whenBranch}END‐EVALUATE.\n`;
+  return `EVALUATE ${varName}\n${whenBranch}END-EVALUATE.\n`;
 };
 
 cobolGenerator['cobol_when_case'] = block => {
