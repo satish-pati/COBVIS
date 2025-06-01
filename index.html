@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>LegacyLens: Legacy Scoring for GitHub Repositories</title>
+    <title>COBMAKER – Interactive Block-Based Programming
+Environment for Legacy Language Learning and
+Real-Time Code Generation</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,7 +34,7 @@
                     <h1 class="logo">
                         <a href="index.html">
 <!--                             <span aria-hidden="true" class="icon_documents_alt icon"></span> -->
-                            <span class="text-highlight"></span><span class="text-bold">LegacyLens</span>
+                            <span class="text-highlight"></span><span class="text-bold">COBMAKER </span>
                         </a>
                     </h1>
                     
@@ -67,9 +69,9 @@ Real-Time Code Generation</h1>
                                 <h3 class="block-title">Tool Description</h3>
                                 <div class="section-block">
                                     <p>
-                                       COBVIS is an innovative, browser-based learning environment designed to teach COBOL—a foundational legacy programming language—using modern visual programming principles. Targeting both novice programmers and experienced developers transitioning to legacy system maintenance, COBVIS leverages intuitive drag-and-drop interfaces, hierarchical section visualizations, and real-time code generation to bridge the gap between modern learning styles and the structured syntax of COBOL.
+                                       COBMAKER is an innovative, browser-based learning environment designed to teach COBOL—a foundational legacy programming language—using modern visual programming principles. Targeted at novice programmers and those transitioning into legacy system maintenance, COBMAKER leverages intuitive drag-and-drop interfaces, hierarchical section visualizations, and real-time code generation to bridge the gap between modern learning styles and the structured syntax of COBOL.
 
-COBVIS transforms traditionally tedious COBOL education into an engaging, interactive experience. Inspired by the success of visual programming platforms like Scratch and Blockly, COBVIS is the first comprehensive visual learning platform built specifically for COBOL, empowering the next generation of developers to sustain and innovate on critical legacy infrastructure.
+COBMAKER transforms traditionally tedious COBOL education into an engaging, interactive experience. Inspired by the success of visual programming platforms like Scratch and Blockly, COBMAKER is the first comprehensive visual learning platform built specifically for COBOL, empowering the next generation of developers to sustain and innovate on critical legacy infrastructure.
                                     </p>
 <!--                                     <p style="color: red;">
                                         <u>Note</u>: The current version of eTagger may have issues on runnning on some architectures of Mac systems.  
@@ -77,18 +79,63 @@ COBVIS transforms traditionally tedious COBOL education into an engaging, intera
 <!--                                     <a href="https://github.com/rishalab/eTagger/archive/main.zip" class="btn btn-green" target="_blank"><i class="fas fa-download"></i> Download Tool Zip</a> -->
                                 </div>
                             </section><!--//doc-section-->
+    
+
+
                             <section id="installation-section" class="doc-section">
                                 <h2 class="section-title">Installation</h2>
+                                <div id="step1" class="section-block">
+        <h3 class="block-title" id="requirements">Requirements(for Accessing deployed version)</h3>
+        <div class="code-block">
+            <p><b>Software Requirements:</b></p>
+            <ul>
+                <li><b>Web Browser (latest version of any):</b>
+                    <ul>
+                        <li>Google Chrome</li>
+                        <li>Mozilla Firefox</li>
+                        <li>Microsoft Edge</li>
+                        <li>Safari (for macOS/iOS users)</li>
+                        <li>Brave, Opera, etc. (optional)</li>
+                    </ul>
+                </li>
+                <li><b>Operating System (any with browser support):</b>
+                    <ul>
+                        <li>Windows</li>
+                        <li>macOS</li>
+                        <li>Linux</li>
+                        <li>Android</li>
+                        <li>iOS</li>
+                    </ul>
+                </li>
+                <li><b>Internet Connection:</b> Stable connection (recommended: ≥ 1 Mbps)</li>
+            </ul>
+            <br/>
+            <p><b>Hardware Requirements:</b></p>
+            <ul>
+                <li><b>Supported Devices:</b>
+                    <ul>
+                        <li>Laptop or Desktop (Windows/macOS/Linux)</li>
+                    </ul>
+                </li>
+                <li><b>Minimum Specs for smooth experience:</b>
+                    <ul>
+                        <li>RAM: At least 2 GB</li>
+                        <li>CPU: Any modern processor (Intel, AMD, ARM)</li>
+                        <li>Screen Resolution: 1024x768 or higher</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
                                 <div id="step1"  class="section-block">
-                                    <h3 class="block-title" id="requirements">Requirements</h3>
+                                    <h3 class="block-title" id="requirements">Requirements(Setting up locally)</h3>
                                     <div class="code-block">
                                         <p>
                                         <b> Hardware and Operating System:</b>
                                         <ul>
-                                            <li>Windows 8/10/11, macOS 12+, or Linux (Ubuntu 20.04+)</li>
+                                            <li>Windows 10/11, macOS 12+, or Linux (Ubuntu 20.04+)</li>
                                             <li>Processor: Intel Pentuim, Core i3/i5/i7/i9 or Ultra, AMD Ryzen 5 or better</li>
-                                            <li>RAM: Minimum of 4GB</li>
-                                            <li>Storage: 25 MB</li>
+                                            <li>RAM: Minimum of 4GB  or more (8 GB recommended for development) </li>
                                         </ul>
                                             The software was tested on a Windows 11 system with 16 GB RAM.
                                             <br/>
@@ -103,27 +150,7 @@ COBVIS transforms traditionally tedious COBOL education into an engaging, intera
         <li><a href="https://axios-http.com/">Axios</a> (for frontend-backend communication)</li> 
                                         </ul>
                                         <br/>
-                                        <b>API Tokens and Accesses</b>
-                                        <ul>
-                                            <li><a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token">GitHub Finegrained PAT</a></li>
-                                            <li><a href="https://vercel.com/docs/accounts/create-an-account">Vercel Account</a> for accessing backend API endpoint. Be sure to mail your signed-up email to <a href="mailto:cs23m104@iittp.ac.in">cs23m104@iittp.ac.in</a> with the purpose of using the tool for gaining access. This is for security reasons.</li>
-                                        </ul>
-					    <!-- <ul>
-					   <li>Intel processors from Pentium, Core i3, i7, i9, and Xeon series.</li>
-					    <li>Un.</li>
-					    <li>Have <a href="https://cran.r-project.org">R</a> installed in your system.</li>
-					   </ul> -->
-					                    </p>
-				    
-				    <!-- <b>If you are using Ubuntu 22.04 please run the below commands to install R.</b>
-				    <ul>
-					    <li>wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo gpg --dearmor -o /usr/share/keyrings/r-project.gpg</li>
-
-					    <li>echo "deb [signed-by=/usr/share/keyrings/r-project.gpg] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" | sudo tee -a /etc/apt/sources.list.d/r-project.list</li>
-					    <li>sudo apt update</li>
-					    <li>sudo apt install --no-install-recommends r-base</li>
-					    <li>sudo -i R</li>
-					   </ul> -->
+                                        
                                 
                                     </div>
                                 </section>
@@ -132,16 +159,25 @@ COBVIS transforms traditionally tedious COBOL education into an engaging, intera
     <h2 class="section-title">Usage</h2>
     <div class="section-block">
         <p>
-        The tool consists of a frontend built using React and a backend powered by Flask. Follow the steps below to run COBMAKER locally on your machine:
+        The tool consists of a frontend built using React and a backend powered by Flask.
         </p>
+        <p>
+        For a live demo, visit:
+        <a href="https://cobol-visualizer.vercel.app/" target="_blank">
+                    https://cobol-visualizer.vercel.app/
+                </a>
+        <p>
+ Follow the steps below to run COBMAKER locally on your machine:
+        </p>
+           
         <ol>
             <li>Clone the GitHub repository by running the following command:
                 <div class="code-block">
                     <code>git clone https://github.com/satish-pati/COBMAKER.git</code><br/>
                     <code>cd COBMAKER</code>
                 </div>
+                 
             </li>
-
             <li>Install Frontend Dependencies:
                 <div class="code-block">
                     <code>cd client</code><br/>
@@ -205,12 +241,9 @@ COBVIS transforms traditionally tedious COBOL education into an engaging, intera
                                 <h2 class="section-title">Approach diagram</h2>
                                 <div class="section-block">
                                             <p>
-                                                The age metrics are directly retrieved by the extension JavaScript, popup.js, from the GitHub API, as this is a lightweight task. URL validation and extraction of the owner 
-                                                and repository names are also handled by 'popup.js'. For the complexity metrics, a back-end service written in Python and deployed on Vercel clones the repository into a local directory. 
-                                                Python functions are used to calculate the LOC and CCN scores. The lizard library is used to compute CCN. The results are then returned to the extension 
-                                                as a JSON object, where the final calculations are performed, and the scores are displayed to the user.
+                                               The interface is divided into three main panels: the left panel contains various categorized blocks ; the center panel features a Blockly workspace where users can arrange these blocks to form logical programs; and the right panel displays the live COBOL code generated from the assembled blocks, along with the output after execution. The frontend is built using React for UI rendering, Blockly for block manipulation and code generation, Axios for client-server communication, and CSS for responsive design. The backend is powered by Python Flask (or optionally Node.js) and uses GnuCOBOL (cobc) to compile and execute the generated COBOL code. The user workflow is simple and engaging: users drag blocks into the workspace, view the real-time COBOL code generated on the right, and click “Run” to compile and execute the code on the backend. The tool is ideal for learners and developers interested in exploring COBOL through a modern, visual approach.
                                             </p>
-                                            <img class="img-fluid" src="assets/images/demo/LegacyLens_design.png" alt="approach" />
+                                            <img class="img-fluid" src="assets/images/demo/cobmaker.jpg" alt="approach" />
                                             <br>
                                 
                             </section>
@@ -221,14 +254,10 @@ COBVIS transforms traditionally tedious COBOL education into an engaging, intera
                                     <ul style="list-style: none;">
                                         <li>
                                             <br>
-                                            <img class="img-fluid" src="assets/images/demo/usage-1.png" alt="screenshot" width="1200" height="1600"/>
+                                            <img class="img-fluid" src="assets/images/demo/COBMAKER_ui.png" alt="screenshot" width="1200" height="1600"/>
                                             <br><br>
                                         </li>
-                                        <li>
-                                            <br>
-                                            <img class="img-fluid" src="assets/images/demo/usage-2.png" alt="elegant icons" width="1200" height="1600"/>
-                                            <br><br>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
                                 
@@ -238,6 +267,24 @@ COBVIS transforms traditionally tedious COBOL education into an engaging, intera
                                 <h2 class="section-title">Goal</h2>
                                 <div class="section-block">
                                     Helps learners and organizations rapidly onboard new COBOL developers by providing an interactive, block-based visual environment that generates real-time COBOL code. Manually teaching COBOL through text-based tutorials is slow and error-prone, often deterring modern learners. With COBVIS, both novice and experienced programmers can drag and drop intuitive blocks to explore COBOL syntax, receive immediate compilation feedback, and build working programs—significantly reducing the time and effort required to understand and maintain critical legacy systems.
+                                </div>
+                                
+                            </section>
+                            <section id="uses-section" class="doc-section">
+                                <h2 class="section-title">Limitations</h2>
+                                <div class="section-block">
+                                    Currently, the tool supports COBOL commands like OPEN, READ, WRITE, and other file-handling operations. However, due to the absence of integrated file upload and management capabilities within the tool, these commands do not function as intended. Similarly, while commands related to the Linkage Section are available, there is no backend support yet for linking external programs or handling inter-program communication, making them non-functional at this stage.
+
+To fully support these features in the future, we plan to integrate:
+
+File upload and file management support
+
+Program linkage mechanisms for modular COBOL execution
+
+Advanced COBOL utilities and system-level features for expanded use cases
+
+These enhancements will significantly broaden the tool’s applicability, especially for more complex, real-world COBOL applications.
+
 
 
 
@@ -341,7 +388,7 @@ COBVIS transforms traditionally tedious COBOL education into an engaging, intera
                         <div class="content-holder-inner">
                             <div class="desc">
                                 <h3 class="promo-title">Contributors</h3>
-                                <p> Chiranjeevi B S, Sridhar Chimalakonda</p>
+                                <p> Satish Pati,Raghavendra Pappu,Sridhar Chimalakonda</p>
                                 <!-- <a class="btn btn-cta" href="" target="_blank"><i class="fas fa-external-link-alt"></i> Preprint</a> -->
                             </div><!--//desc-->
                         </div><!--//content-holder-inner-->
