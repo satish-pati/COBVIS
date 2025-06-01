@@ -299,7 +299,7 @@ cobolGenerator['cobol_delete'] = block => {
 // =============================================
 // ARITHMETIC GENERATORS
 // =============================================
-
+/*
 cobolGenerator['cobol_move'] = block => {
   const val = block.getFieldValue('VAL');
   const varName = block.getFieldValue('VAR');
@@ -363,6 +363,73 @@ cobolGenerator['cobol_compute'] = block => {
   const result = block.getFieldValue('RESULT');
   const expression = block.getFieldValue('EXPRESSION');
   return `COMPUTE ${result} = ${expression}.\n`;
+};
+*/
+const getLineEnding = block => !!block.getSurroundParent() ? '' : '.';
+
+cobolGenerator['cobol_move'] = block => {
+  const val = block.getFieldValue('VAL');
+  const varName = block.getFieldValue('VAR');
+  return `MOVE ${val} TO ${varName}${getLineEnding(block)}\n`;
+};
+
+cobolGenerator['cobol_add'] = block => {
+  const num = block.getFieldValue('NUM');
+  const varName = block.getFieldValue('VAR');
+  return `ADD ${num} TO ${varName}${getLineEnding(block)}\n`;
+};
+
+cobolGenerator['cobol_add_giving'] = block => {
+  const a = block.getFieldValue('A');
+  const b = block.getFieldValue('B');
+  const result = block.getFieldValue('RESULT');
+  return `ADD ${a} TO ${b} GIVING ${result}${getLineEnding(block)}\n`;
+};
+
+cobolGenerator['cobol_subtract'] = block => {
+  const num = block.getFieldValue('NUM');
+  const varName = block.getFieldValue('VAR');
+  return `SUBTRACT ${num} FROM ${varName}${getLineEnding(block)}\n`;
+};
+
+cobolGenerator['cobol_subtract_giving'] = block => {
+  const a = block.getFieldValue('A');
+  const b = block.getFieldValue('B');
+  const result = block.getFieldValue('RESULT');
+  return `SUBTRACT ${a} FROM ${b} GIVING ${result}${getLineEnding(block)}\n`;
+};
+
+cobolGenerator['cobol_multiply'] = block => {
+  const a = block.getFieldValue('A');
+  const b = block.getFieldValue('B');
+  return `MULTIPLY ${a} BY ${b}${getLineEnding(block)}\n`;
+};
+
+cobolGenerator['cobol_multiply_giving'] = block => {
+  const a = block.getFieldValue('A');
+  const b = block.getFieldValue('B');
+  const result = block.getFieldValue('RESULT');
+  return `MULTIPLY ${a} BY ${b} GIVING ${result}${getLineEnding(block)}\n`;
+};
+
+cobolGenerator['cobol_divide'] = block => {
+  const a = block.getFieldValue('A');
+  const b = block.getFieldValue('B');
+  return `DIVIDE ${a} BY ${b}${getLineEnding(block)}\n`;
+};
+
+cobolGenerator['cobol_divide_giving'] = block => {
+  const a = block.getFieldValue('A');
+  const b = block.getFieldValue('B');
+  const result = block.getFieldValue('RESULT');
+  const remainder = block.getFieldValue('REMAINDER');
+  return `DIVIDE ${a} BY ${b} GIVING ${result} REMAINDER ${remainder}${getLineEnding(block)}\n`;
+};
+
+cobolGenerator['cobol_compute'] = block => {
+  const result = block.getFieldValue('RESULT');
+  const expression = block.getFieldValue('EXPRESSION');
+  return `COMPUTE ${result} = ${expression}${getLineEnding(block)}\n`;
 };
 
 // =============================================
