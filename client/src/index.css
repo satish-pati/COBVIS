@@ -687,7 +687,7 @@ code:hover {
 }
 
 /* Magnificent Header Animations */
-h1, h2, h3, h4, h5, h6 {
+ h2, h3, h4, h5, h6 {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
   background-size: 200% 200%;
   -webkit-background-clip: text;
