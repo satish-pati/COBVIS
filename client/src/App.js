@@ -11,7 +11,7 @@ function App() {
 
   const runCode = async () => {
    try {
-  const res = await axios.post('https://cobol-visualizer-1.onrender.com/run', { code });
+  const res = await axios.post('http://localhost:5000/run', { code });
   setOutput(res.data.output);
 } catch (err) {
   const e = err.response?.data;
@@ -73,12 +73,12 @@ function App() {
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#1e1e2f', color: '#fff' }}>
       <header style={{ 
         padding: '10px 20px', 
-        background: 'linear-gradient(90deg, #2c2f4a, #434675)', 
+        background: 'linear-gradient(90deg,rgb(103, 117, 236), #434675)', 
         borderBottom: '2px solid #333',
         flexShrink: 0,
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.4)'
       }}>
-        <h1 style={{ margin: 0, fontSize: '24px', color: '#ffffff' }}>🚀 COBOL Block Editor</h1>
+        <h1 style={{ margin: 0, fontSize: '24px', color: '#ffffff' }}>🚀 COBMaker</h1>
       </header>
       
       <div 
@@ -90,11 +90,11 @@ function App() {
           width: `${leftWidth}%`, 
           height: '100%',
           overflow: 'hidden',
-          backgroundColor: '#2d2d3a',
+          backgroundColor: '#E0EFFF',
           minWidth: '150px',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: 'inset -3px 0 10px rgba(0,0,0,0.4)'
+          boxShadow: 'inset -3px 0 10px #E0EFFF'
         }}>
           <div style={{ 
             padding: '10px', 
@@ -150,10 +150,10 @@ function App() {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          backgroundColor: '#1a1a26'
+          backgroundColor: '#efefef'
         }}>
           {/* Code Display */}
-          {/* Code Display */}
+          {/**/}
 <div style={{ 
   flex: '1 1 50%',
   display: 'flex',
@@ -163,7 +163,7 @@ function App() {
 }}>
   <div style={{ 
     padding: '10px 15px 5px', 
-    backgroundColor: '#262635',
+    backgroundColor: '#E0EFFF',
     borderBottom: '1px solid #555',
     flexShrink: 0
   }}>
@@ -203,8 +203,8 @@ function App() {
       fontFamily: 'Consolas, Monaco, monospace',
       fontSize: '13px',
       lineHeight: '1.5',
-      backgroundColor: '#0d0d1a',
-      color: '#f8f8f2',
+       backgroundColor: output.startsWith('Error:') ? '#E0EFFF' : '#E0EFFF',
+      color: output.startsWith('Error:') ? '#1e1e2f' :  '#1e1e2f' ,
       padding: '10px',
       border: '1px solid #444',
       borderRadius: '6px',
@@ -226,7 +226,7 @@ function App() {
 }}>
   <div style={{ 
     padding: '10px 15px 5px', 
-    backgroundColor: '#262635',
+    backgroundColor: '#E0EFFF',
     borderBottom: '1px solid #555',
     flexShrink: 0
   }}>
@@ -238,8 +238,8 @@ function App() {
       fontFamily: 'Consolas, Monaco, monospace',
       fontSize: '13px',
       lineHeight: '1.5',
-      backgroundColor: output.startsWith('Error:') ? '#2d0b0b' : '#0d0d1a',
-      color: output.startsWith('Error:') ? '#ff5252' : '#e0e0e0',
+      backgroundColor: output.startsWith('Error:') ? '#E0EFFF' : '#E0EFFF',
+      color: output.startsWith('Error:') ? '#1e1e2f' :  '#1e1e2f' ,
       padding: '10px',
       border: '1px solid #444',
       borderRadius: '6px',
