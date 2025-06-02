@@ -1,37 +1,37 @@
 
 .blocklyMainBackground {
-  fill: #1e1e2f !important;
+  fill: #E0EFFF !important;
 }
 .blocklyFlyout .blocklyBlockBackground {
-  fill: #2d2d2d !important;
+  fill: #E0EFFF !important;
   fill-opacity: 1 !important;
 }
 .blocklyFlyout text {
   fill: #ffffff !important;
 }
-.blocklyScrollbarBackground { fill: #333 !important; }
+.blocklyScrollbarBackground { fill: #E0EFFF !important; }
 .blocklyScrollbarHandle     { fill: #666 !important; }
 .dark-blockly-container {
   height: 100;
   width: 100%;
-  background-color: #1e1e2f; 
+  background-color: #E0EFFF; 
 }
 
 .blocklyMainBackground {
-  fill: #1e1e2f !important; 
+  fill: #ffffff!important; 
 }
 
 .blocklySvg {
-  background-color: #1e1e2f !important;
+  background-color: #E0EFFF !important;
 }
 
 .blocklyToolbox {
-  background-color: #252535 !important;
+  background-color: #E0EFFF !important;
   color: #f0f0f0;
 }
 
 .blocklyTreeRow {
-  background-color: #252535 !important;
+  background-color: #E0EFFF !important;
     height: 80px !important;   
   color: #fff;
 }
@@ -62,7 +62,7 @@
 }
 
 .blocklyFlyoutBackground {
-  fill: #2b2b3c !important;
+  fill: #E0EFFF!important;
   fill-opacity: 1 !important;
 }
 
@@ -90,7 +90,7 @@
   opacity: 1 !important;     
 }
 .blocklyToolboxCategory {
-  background-color: #efefef !important; 
+  background-color: #E0EFFF !important; 
   color: #7a5ba5 !important;
   opacity: 1 !important;
 }
@@ -107,11 +107,13 @@
 }
 
 .blocklyFlyout .blocklyBlockBackground {
-  fill: #2d2d2d !important;
+  fill: #efefef !important;
   fill-opacity: 1 !important; 
 }
 .blocklyFlyoutLabelText {
   font-size: 20px !important; 
   font-weight: bold !important;
-  fill: #ffffff !important; 
+  color: #1e1e1e !important;           /* Black text */
+  background-color: #0a0808 !important; /* White background */
 }
+
